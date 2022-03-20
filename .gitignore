@@ -1,0 +1,13 @@
+/vendor/*
+
+/node_modules/*
+/src/*
+/_trash/*
+
+secrets.php
+
+.babelrc
+gulpfile.babel.js
+
+package.json
+package-lock.json

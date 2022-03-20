@@ -1,0 +1,33 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <section class="main">
+            <form id="registerForm" action="{{ source.to('auth/register-form') }}" method="POST">
+                <fieldset>
+                    <h2>Регистрация</h2>
+
+                    {% if form.getErrors()|length > 0 %}
+                        <ul class="error">
+                            {% for error in form.getErrors() %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <label>{{ form.getFieldLabel('username') }}</label>
+                    <input type="text" name="username" value="{{ form.inputs.username }}">
+                    <label>{{ form.getFieldLabel('email') }}</label>
+                    <input type="email" name="email" value="{{ form.inputs.email }}" />
+                    <label>{{ form.getFieldLabel('password') }}</label>
+                    <input type="password" name="password" value="{{ form.inputs.password }}" />
+                    <button type="submit">Отправить</button>
+                </fieldset>
+            </form>
+        </section>
+
+    </div>
+
+{% endblock %}

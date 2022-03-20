@@ -1,0 +1,29 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <section class="yard">
+            {% if (username) %}
+                <p><a href="{{ source.to('auth/logout') }}">Выйти</a></p>
+                <br />
+                <h1>Hello, {{ username }}!</h1>
+            {% else %}
+                <p><a href="{{ source.to('auth/login') }}">Войти</a></p>
+            {% endif %}
+        </section>
+
+        <section class="main">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tincidunt ornare massa eget egestas purus viverra accumsan. Neque viverra justo nec ultrices dui sapien. Mi tempus imperdiet nulla malesuada pellentesque elit eget. Non enim praesent elementum facilisis leo vel. In metus vulputate eu scelerisque felis imperdiet proin. Nulla aliquet porttitor lacus luctus accumsan tortor. Posuere urna nec tincidunt praesent. Et ligula ullamcorper malesuada proin libero nunc. Lacus sed viverra tellus in. Sit amet tellus cras adipiscing enim eu turpis. Quam quisque id diam vel quam elementum pulvinar etiam non. Malesuada bibendum arcu vitae elementum curabitur vitae nunc. Et netus et malesuada fames ac turpis egestas integer eget. Eget egestas purus viverra accumsan in nisl. Et malesuada fames ac turpis egestas maecenas pharetra convallis posuere.
+            </p>
+        </section>
+
+        <aside class="sidebar">
+            Sidebar
+        </aside>
+
+    </div>
+
+{% endblock %}

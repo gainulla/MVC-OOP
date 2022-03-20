@@ -1,0 +1,25 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <section class="main">
+            <form id="loginForm" action="{{ source.to('auth/login-form') }}" method="POST">
+                <fieldset>
+                    <h2>Логин</h2>
+                    {% if errors|length > 0 %}
+                        <ul class="error">
+                            {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+                        </ul>
+                    {% endif %}
+                    <input type="email" name="email" value="" placeholder="{{ form.getFieldLabel('email') }}" />
+                    <input type="password" name="password" value="" placeholder="{{ form.getFieldLabel('password') }}" />
+                    <button type="submit">Отправить</button>
+                </fieldset>
+            </form>
+        </section>
+
+    </div>
+
+{% endblock %}
