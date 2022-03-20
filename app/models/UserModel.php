@@ -13,8 +13,6 @@ class UserModel
     private $username;
     private $passwordHash;
 
-    private array $fieldReplacements = [];
-
     public function __construct(array $data=[])
     {
         if (!empty($data)) {
