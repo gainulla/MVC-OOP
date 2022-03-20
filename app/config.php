@@ -20,7 +20,7 @@ define('BASE_URL', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/adv-p
 return [
     'db'  => [
         'host'       => secrets('db.host') ?? 'localhost',
-        'name'       => secrets('db.name') ?? 'db_oop_ds',
+        'name'       => secrets('db.name') ?? '',
         'user'       => secrets('db.user') ?? 'root',
         'password'   => secrets('db.password') ?? '',
         'charset'    => 'utf8',
