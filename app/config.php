@@ -1,6 +1,6 @@
 <?php
 
-function secrets($dottedKeyPath)
+function secrets($dottedPath)
 {
     static $included = false;
 
@@ -8,7 +8,7 @@ function secrets($dottedKeyPath)
         require_once realpath(__DIR__ . '/secrets.php');
         $included = true;
     } else {
-        return getSecret($dottedKeyPath);
+        return getSecret($dottedPath);
     }
 
     return null;
