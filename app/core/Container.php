@@ -7,7 +7,7 @@ use App\Core\Database;
 use App\Core\Renderer;
 use App\Core\TwigTemplate;
 use App\Core\Form;
-use App\Core\Source;
+use App\Core\Url;
 use App\Core\SessionManager;
 use App\Contracts\RInterface;
 use App\Contracts\CUDInterface;
@@ -42,7 +42,7 @@ class Container
     {
         return new Renderer(
             new TwigTemplate($this->config['template_path']),
-            new Source(
+            new Url(
                 $this->config['css_dir_uri'],
                 $this->config['img_dir_uri'],
                 $this->config['js_dir_uri'],

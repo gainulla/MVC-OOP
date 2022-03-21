@@ -6,11 +6,11 @@
 
         <section class="yard">
             {% if (username) %}
-                <p><a href="{{ source.to('auth/logout') }}">Выйти</a></p>
+                <p><a href="{{ url.for('auth/logout') }}">Выйти</a></p>
                 <br />
                 <h1>Hello, {{ username }}!</h1>
             {% else %}
-                <p><a href="{{ source.to('auth/login') }}">Войти</a></p>
+                <p><a href="{{ url.for('auth/login') }}">Войти</a></p>
             {% endif %}
         </section>
 

@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-class Source
+class Url
 {
     private $cssDirUri;
     private $imgDirUri;
@@ -18,7 +18,7 @@ class Source
         $this->jsDirUri  = $jsDirUri;
     }
 
-    public function to($target, $ext="")
+    public function for($target, $ext="")
     {
         if ($ext != "") {
             $prop = "{$ext}DirUri";
