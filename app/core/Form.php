@@ -12,7 +12,7 @@ class Form
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->inputs = $_POST;
-        } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $this->inputs = $_GET;
         }
 
@@ -76,7 +76,7 @@ class Form
                 }
             }
 
-            if (empty($this->error[$name])) {
+            if (empty($this->errors[$name])) {
                 $this->inputs[$name] = $value;
             }
         }
