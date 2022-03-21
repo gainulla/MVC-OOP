@@ -17,13 +17,22 @@
                         </ul>
                     {% endif %}
 
-                    <label>{{ form.getFieldLabel('username') }}</label>
-                    <input type="text" name="username" value="{{ form.inputs.username }}">
-                    <label>{{ form.getFieldLabel('email') }}</label>
-                    <input type="email" name="email" value="{{ form.inputs.email }}" />
-                    <label>{{ form.getFieldLabel('password') }}</label>
-                    <input type="password" name="password" value="{{ form.inputs.password }}" />
-                    <button type="submit">Отправить</button>
+                    <div>
+                        <label>{{ form.getFieldLabel('username') }}</label>
+                        <input type="text" name="username" value="{{ form.inputs.username }}">
+                    <div>
+                    <div>
+                        <label>{{ form.getFieldLabel('email') }}</label>
+                        <input type="email" name="email" value="{{ form.inputs.email }}" />
+                    </div>
+                    <div class="password">
+                        <label>{{ form.getFieldLabel('password') }}</label>
+                        <input id="password" type="password" name="password" value="{{ form.inputs.password }}" />
+                        <span class="password__icon-eye" id="togglePassword" />
+                    </div>
+                    <div>
+                        <button type="submit">Отправить</button>
+                    </div>
                 </fieldset>
             </form>
         </section>

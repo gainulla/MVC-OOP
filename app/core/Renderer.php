@@ -11,7 +11,7 @@ class Renderer
     private $source;
     private $key;
 
-    public function __construct(TwigTemplate $templateEngine, Source $source, $key) {
+    public function __construct(TwigTemplate $templateEngine, Source $source, array $key) {
         $this->templateEngine = $templateEngine;
         $this->source = $source;
         $this->key = $key;
