@@ -8,6 +8,7 @@ use App\Core\Renderer;
 use App\Core\TwigTemplate;
 use App\Core\Form;
 use App\Core\Url;
+use App\Core\MenuReader;
 use App\Core\SessionManager;
 use App\Contracts\RInterface;
 use App\Contracts\CUDInterface;
@@ -42,6 +43,7 @@ class Container
     {
         return new Renderer(
             new TwigTemplate($this->config['template_path']),
+            new MenuReader(),
             new Url(
                 $this->config['css_dir_uri'],
                 $this->config['img_dir_uri'],
