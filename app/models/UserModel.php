@@ -25,6 +25,11 @@ class UserModel
         }
     }
 
+    public function isLoggedIn()
+    {
+        return $this->id !== NULL;
+    }
+
     public function getAttr(string $attr)
     {
         return $this->{$attr};

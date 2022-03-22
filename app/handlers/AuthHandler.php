@@ -19,13 +19,13 @@ class AuthHandler extends Handler
         $email = $form->getInputs('email');
         $password = $form->getInputs('password');
 
-        $user = $userR->findByEmail($email, ['passwordHash', 'username']);
+        $user = $userR->findByEmail($email, ['passwordHash', 'id']);
 
         if (!$user || !password_verify($password, $user->getAttr('passwordHash'))) {
             $errors[] = 'Неверный эл. адрес или пароль.';
             $this->renderer->render('auth/login', ['errors' => $errors]);
         } else {
-            $this->session->set('username', $user->getAttr('username'));
+            $this->session->set('id', $user->getAttr('id'));
             $this->redirect('home/index');
         }
     }

@@ -14,7 +14,7 @@
         <div class="box">
 
             <ul class="menu">
-            {% for item in menuReader.read(url, username) %}
+            {% for item in menuReader.read(url, user.isLoggedIn()) %}
                 <li class="menu__item">
                     <a href="{{ item.url }}">{{ item.text }}</a>
                 </li>

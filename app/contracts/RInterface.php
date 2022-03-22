@@ -4,13 +4,7 @@ namespace App\Contracts;
 
 interface RInterface
 {
-    /**
-     * @return array | NULL
-     */
-    public function fetch($models);
+    public function fetch($models): array;
 
-    /**
-     * @return object | NULL
-     */
-    public function find($model);
+    public function find($model): object;
 }

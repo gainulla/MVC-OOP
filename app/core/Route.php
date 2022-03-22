@@ -4,13 +4,16 @@ namespace App\Core;
 
 use App\Core\Renderer;
 use App\Core\SessionManager;
+use App\Models\UserModel;
 
 class Route
 {
     // Default Handler
     private $currentHandler = '\App\Handlers\HomeHandler';
+
     // Default Action
     private $currentMethod  = 'index';
+
     // Params from URL path
     private $params         = [];
 
@@ -49,10 +52,15 @@ class Route
         $this->params = $url ? array_values($url) : [];
     }
 
-    public function execute(Renderer $renderer, SessionManager $session, $dependencies = []): void
+    public function execute(
+        Renderer $renderer,
+        SessionManager $session,
+        UserModel $user,
+        $dependencies = []): void
     {
         $args = array_merge(['params' => $this->params], $dependencies);
-        $handler = new $this->currentHandler($renderer, $session);
+        $handler = new $this->currentHandler($renderer, $session, $user);
+
         call_user_func_array(
             [$handler, $this->currentMethod],
             $args

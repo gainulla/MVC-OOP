@@ -16,7 +16,7 @@ class UserR implements \App\Contracts\RInterface
         $this->modelPath = UserModel::class;
     }
 
-    public function fetch($fields=['*'])
+    public function fetch($fields=['*']): array
     {
         $users = $this->db
                 ->select($fields)
@@ -27,10 +27,10 @@ class UserR implements \App\Contracts\RInterface
 
         $this->db->reset();
 
-        return (!empty($users) ? $users : NULL);
+        return (!empty($users) ? $users : []);
     }
 
-    public function find($id, $fields=['*'])
+    public function find($id, $fields=['*']): UserModel
     {
         $user = $this->db
                 ->select($fields)
@@ -41,7 +41,7 @@ class UserR implements \App\Contracts\RInterface
 
         $this->db->reset();
 
-        return (!empty($user) ? $user[0] : NULL);
+        return (!empty($user) ? $user[0] : new UserModel());
     }
 
     public function findByEmail($email, $fields=['*'])
