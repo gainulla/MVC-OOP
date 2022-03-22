@@ -12,6 +12,7 @@ use App\Core\MenuReader;
 use App\Core\SessionManager;
 use App\Contracts\RInterface;
 use App\Contracts\CUDInterface;
+use App\Models\UserModel;
 
 class Container
 {
@@ -39,7 +40,7 @@ class Container
         return new Form($formLabels);
     }
 
-    public function getRenderer(): Renderer
+    public function getRenderer(UserModel $user): Renderer
     {
         return new Renderer(
             new TwigTemplate($this->config['template_path']),
@@ -49,7 +50,8 @@ class Container
                 $this->config['img_dir_uri'],
                 $this->config['js_dir_uri'],
             ),
-            $this->config['key']
+            $this->config['key'],
+            $user
         );
     }
 

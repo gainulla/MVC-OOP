@@ -37,8 +37,8 @@ switch ($route->handlerMethod())
             $deps = [];
 }
 
-$renderer = $container->getRenderer();
 $session = $container->getSessionManager();
 $user = $container->getRepositoryR(UserR::class)->find($session->get('id'));
+$renderer = $container->getRenderer($user);
 
 $route->execute($renderer, $session, $user, $deps);

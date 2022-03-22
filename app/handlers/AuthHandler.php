@@ -11,7 +11,9 @@ class AuthHandler extends Handler
 {
     public function login(array $params, Form $form)
     {
-        $this->renderer->render('auth/login', ['form' => $form]);
+        $this->renderer->render('auth/login', [
+            'form' => $form
+        ]);
     }
 
     public function loginForm(array $params, UserR $userR, Form $form)
@@ -32,7 +34,9 @@ class AuthHandler extends Handler
 
     public function register(array $params, Form $form)
     {
-        $this->renderer->render('auth/register', ['form' => $form]);
+        $this->renderer->render('auth/register', [
+            'form' => $form
+        ]);
     }
 
     public function registerForm(array $params, UserR $userR, UserCUD $userCUD, Form $form)
@@ -47,7 +51,7 @@ class AuthHandler extends Handler
         }
 
         $this->renderer->render('auth/register', [
-            'form'   => $form,
+            'form' => $form,
         ]);
     }
 
