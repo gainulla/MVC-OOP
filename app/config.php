@@ -36,7 +36,7 @@ return [
             'embed_code' => secrets('fontawesome.embed_code') ?? 'your embed code'
         ],
         // your secret key to be used to generate a user token
-        // 256-bit key requirement https://randomkeygen.com
+        // 256-bit key requirement, https://randomkeygen.com
         'token_key' => secrets('token_key') ?? 'your secret key'
     ],
 
