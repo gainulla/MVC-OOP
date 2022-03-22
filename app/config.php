@@ -31,9 +31,13 @@ return [
     'js_dir_uri'     => BASE_URL . 'js/',
 
     'key'            => [
-        'fontawesome' => [
-            'integrity' => secrets('fontawesome.integrity') ?? 'your fontawesome integrity key'
-        ]
+        // your fontawesome embed code
+        'fontawesome'    => [
+            'embed_code' => secrets('fontawesome.embed_code') ?? 'your embed code'
+        ],
+        // your secret key to be used to generate a user token
+        // 256-bit key requirement https://randomkeygen.com
+        'token_key' => secrets('token_key') ?? 'your secret key'
     ],
 
     'app_root'       => realpath(__DIR__),
