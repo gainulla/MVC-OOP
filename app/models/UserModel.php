@@ -9,8 +9,8 @@ use App\DataTypes\Password;
 class UserModel
 {
     private $id;
-    private $email;
-    private $username;
+    public $email;
+    public $username;
     private $passwordHash;
 
     public function __construct(array $data=[])
