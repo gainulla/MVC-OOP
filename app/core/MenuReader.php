@@ -6,7 +6,7 @@ use App\Core\Url;
 
 class MenuReader
 {
-    public function read(Url $url, $isLoggedIn)
+    public function read(Url $url, bool $isLoggedIn)
     {
         $menu = [];
         $menu[] = ['url' => $url->for('home/'), 'text' => 'Домашняя'];
