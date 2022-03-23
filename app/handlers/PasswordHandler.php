@@ -31,16 +31,16 @@ class PasswordHandler extends Handler
             $passwordResetToken = $userCUD->startPasswordReset($user, $token);
 
 			if ($passwordResetToken) {
-                $url = $this->url->for('/password/reset/' . $passwordResetToken);
+                $url = $this->url->for('password/reset/' . $passwordResetToken);
 
-                $text = "Please click here to reset your password: " . $url;
+                $plain = "Please click here to reset your password: " . $url;
                 $html = "<h1>Password reset</h1>";
                 $html .= "<p>Please, <a href=\"" . $url . "\">";
                 $html .= "click here to reset your password.";
                 $html .= "</a></p>";
 
                 try {
-                  $mailer->mail($email, 'Password reset', $text, $html);
+                  $mailer->mail($email, 'Password reset', $plain, $html);
                 } catch(Exception $e) {
                   exit('Swiftmailer fail to mail. Something wrong with SMTP.');
                 }
