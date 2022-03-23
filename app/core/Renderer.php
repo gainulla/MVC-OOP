@@ -2,8 +2,8 @@
 
 namespace App\Core;
 
-use App\Core\TwigTemplate;
-use App\Core\Url;
+use App\Core\UrlManager;
+use App\Libs\TwigTemplate;
 use App\Models\UserModel;
 
 class Renderer
@@ -17,15 +17,15 @@ class Renderer
     public function __construct(
         TwigTemplate $templateEngine,
         MenuReader $menuReader,
-        Url $url,
-        array $key,
-        UserModel $user
+        UrlManager $url,
+        UserModel $user,
+        array $key
     ) {
         $this->templateEngine = $templateEngine;
         $this->menuReader = $menuReader;
         $this->url = $url;
-        $this->key = $key;
         $this->user = $user;
+        $this->key = $key;
     }
 
     public function render(string $template, array $data=[]): void

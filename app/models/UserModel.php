@@ -6,12 +6,14 @@ use App\DataTypes\Email;
 use App\DataTypes\Username;
 use App\DataTypes\Password;
 
-class UserModel
+class UserModel implements \App\Contracts\ModelInterface
 {
-    private $id;
-    public $email;
-    public $username;
-    private $passwordHash;
+    protected $id;
+    protected $email;
+    protected $username;
+    protected $passwordHash;
+    protected $passwordResetHash;
+    protected $passwordResetExpiresAt;
 
     public function __construct(array $data=[])
     {
@@ -22,6 +24,8 @@ class UserModel
             $this->passwordHash = (isset($data['password']) && $data['password'])
                                 ? password_hash($data['password'], PASSWORD_BCRYPT)
                                 : NULL;
+            $this->passwordResetHash = $data['passwordResetHash'] ?? NULL;
+            $this->passwordResetExpiresAt = $data['passwordResetExpiresAt'] ?? NULL;
         }
     }
 
@@ -30,7 +34,7 @@ class UserModel
         return $this->id !== NULL;
     }
 
-    public function getAttr(string $attr)
+    public function attr(string $attr)
     {
         return $this->{$attr};
     }

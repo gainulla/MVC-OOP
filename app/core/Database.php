@@ -24,13 +24,22 @@ class Database
         $this->rowCount = 0;
     }
 
+    public function debug()
+    {
+        echo pr([
+            'sql'        => $this->sql,
+            'bindValues' => $this->bindValues,
+            'rowCount'   => $this->rowCount
+        ]);
+
+        return $this;
+    }
+
     public function fetch(string $model): array
     {
         $this->stmt->setFetchMode(\PDO::FETCH_CLASS, $model);
 
-        if ($this->rowCount == 1) {
-            $result = [$this->stmt->fetch()];
-        } elseif ($this->rowCount > 1) {
+        if ($this->rowCount > 0) {
             $result = $this->stmt->fetchAll();
         } else {
             $result = [];
@@ -48,6 +57,7 @@ class Database
                 $this->stmt->bindValue(":{$field}", $value);
             }
         }
+
         $this->stmt->execute();
         $this->rowCount = $this->stmt->rowCount();
 
@@ -71,17 +81,11 @@ class Database
 
     public function where(array $where): Database
     {
-        $count = 0;
+        $key = array_keys($where)[0];
+        $value = array_values($where)[0];
 
-        foreach ($where as $key => $value) {
-            if ($count == 0) {
-                $this->sql .= " WHERE {$key} = :{$key}";
-            } elseif ($count > 0) {
-                $this->sql .= " AND {$key} = :{$key}";
-            }
-            $this->bindValues[$key] = $value;
-            $count++;
-        }
+        $this->sql .= " WHERE {$key} = :{$key}";
+        $this->bindValues[$key] = $value;
 
         return $this;
     }
@@ -93,17 +97,39 @@ class Database
         return $this;
     }
 
-    public function insert($table, $data)
+    public function insert($table)
     {
-        $key = array_keys($data);
-        $val = array_values($data);
-        $columns = implode(', ', $key);
-        $values = "'" . implode("', '", $val) . "'";
+        $this->sql = "INSERT INTO {$table}";
 
-        $this->sql .= "INSERT INTO $table ({$columns}) VALUES ({$values})";
-        $this->stmt = $this->conn->prepare($this->sql);
-        $done = $this->stmt->execute();
+        return $this;
+    }
 
-        return $done;
+    public function update($table)
+    {
+        $this->sql = "UPDATE {$table}";
+
+        return $this;
+    }
+
+    public function set($data)
+    {
+        $cols = array();
+
+        foreach ($data as $key => $value) {
+            if ($value !== NULL) {
+                $this->bindValues[$key] = $value;
+                $cols[] = "{$key} = :{$key}";
+            }
+        }
+
+        $this->sql .= " SET ";
+        $this->sql .= implode(', ', $cols);
+
+        return $this;
+    }
+
+    public function rowCount()
+    {
+        return $this->rowCount;
     }
 }

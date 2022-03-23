@@ -2,21 +2,45 @@
 
 namespace App\Core;
 
+use App\Core\SessionManager;
+
 class Form
 {
-    public $inputs = [];
+    private $inputs = [];
     private $errors = [];
     private $formLabelsList = [];
 
-    public function __construct(array $formLabelsList = [])
+    public function __construct(array $formLabelsList=[])
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->inputs = $_POST;
+
         } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $this->inputs = $_GET;
         }
 
         $this->formLabelsList = $formLabelsList;
+    }
+
+    public function intoSession($sessionName, SessionManager $session)
+    {
+        $session->set($sessionName, serialize([
+            'inputs' => $this->getInputs(),
+            'errors' => $this->getErrors()
+        ]));
+    }
+
+    public function fromSession($sessionName, SessionManager $session)
+    {
+        if ($session->has($sessionName)) {
+            $data = unserialize($session->get($sessionName, true));
+            foreach ($data['inputs'] as $name => $value) {
+                $this->inputs[$name] = $value;
+            }
+            foreach ($data['errors'] as $name => $error) {
+                $this->errors[$name] = $error;
+            }
+        }
     }
 
     public function getInputs($name='')
@@ -28,14 +52,14 @@ class Form
         }
     }
 
-    public function validationPassed()
-    {
-        return (count($this->errors) == 0);
-    }
-
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    public function validationPassed()
+    {
+        return (count($this->errors) == 0);
     }
 
     public function getFieldLabel($inputName) {
@@ -76,7 +100,7 @@ class Form
                 }
             }
 
-            if (empty($this->errors[$name])) {
+            if (!isset($this->errors[$name])) {
                 $this->inputs[$name] = $value;
             }
         }

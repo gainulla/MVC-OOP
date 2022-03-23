@@ -2,17 +2,13 @@
 
 namespace App\Core;
 
-class Url
+class UrlManager
 {
     private $cssDirUri;
     private $imgDirUri;
     private $jsDirUri;
 
-    public function __construct(
-        string $cssDirUri,
-        string $imgDirUri,
-        string $jsDirUri
-    ) {
+    public function __construct(string $cssDirUri, string $imgDirUri, string $jsDirUri) {
         $this->cssDirUri = $cssDirUri;
         $this->imgDirUri = $imgDirUri;
         $this->jsDirUri  = $jsDirUri;

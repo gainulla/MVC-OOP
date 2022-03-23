@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Core\Renderer;
+use App\Core\UrlManager;
 use App\Core\SessionManager;
 use App\Models\UserModel;
 
@@ -56,14 +57,15 @@ class Route
         Renderer $renderer,
         SessionManager $session,
         UserModel $user,
+        UrlManager $url,
         $dependencies = []): void
     {
-        $args = array_merge(['params' => $this->params], $dependencies);
-        $handler = new $this->currentHandler($renderer, $session, $user);
-
         call_user_func_array(
-            [$handler, $this->currentMethod],
-            $args
+            [
+                new $this->currentHandler($renderer, $session, $user, $url, $this->params),
+                $this->currentMethod
+            ],
+            $dependencies
         );
     }
 

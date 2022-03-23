@@ -2,11 +2,11 @@
 
 namespace App\Core;
 
-use App\Core\Url;
+use App\Core\UrlManager;
 
 class MenuReader
 {
-    public function read(Url $url, bool $isLoggedIn)
+    public function read(UrlManager $url, bool $isLoggedIn)
     {
         $menu = [];
         $menu[] = ['url' => $url->for('home/'), 'text' => 'Домашняя'];

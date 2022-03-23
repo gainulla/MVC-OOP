@@ -44,7 +44,7 @@ class UserR implements \App\Contracts\RInterface
         return (!empty($user) ? $user[0] : new UserModel());
     }
 
-    public function findByEmail($email, $fields=['*'])
+    public function findByEmail($email, $fields=['*']): UserModel
     {
         $user = $this->db
                 ->select($fields)
@@ -55,10 +55,10 @@ class UserR implements \App\Contracts\RInterface
 
         $this->db->reset();
 
-        return (!empty($user) ? $user[0] : NULL);
+        return (!empty($user) ? $user[0] : new UserModel());
     }
 
-    public function isUnique($field, $value)
+    public function isUnique($field, $value): bool
     {
         $user = $this->db
                 ->select([$field])

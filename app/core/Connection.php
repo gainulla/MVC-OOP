@@ -15,7 +15,7 @@ final class Connection extends PDO
 
 		foreach ($required as $setting) {
 			if (!isset($setting)) {
-				throw new \InvalidArgumentException("Settings is incomplete!");
+				throw new \InvalidArgumentException("The '{$setting}' is required!");
 			}
 		}
 

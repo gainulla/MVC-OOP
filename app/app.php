@@ -17,6 +17,9 @@ $route = new Route();
 
 switch ($route->handlerMethod())
 {
+	case 'HomeHandler::index':
+				$deps = [];
+				break;
     case 'AuthHandler::login':
 				$deps[] = $container->getForm(UserModel::formLabels());
 				break;
@@ -33,12 +36,23 @@ switch ($route->handlerMethod())
 				$deps[] = $container->getRepositoryCUD(UserCUD::class);
 				$deps[] = $container->getForm(UserModel::formLabels());
 				break;
+	case 'PasswordHandler::index':
+				$deps[] = $container->getForm(UserModel::formLabels());
+				break;
+	case 'PasswordHandler::resetForm':
+				$deps[] = $container->getToken();
+				$deps[] = $container->getRepositoryR(UserR::class);
+				$deps[] = $container->getRepositoryCUD(UserCUD::class);
+				$deps[] = $container->getForm(UserModel::formLabels());
+				$deps[] = $container->getMailer();
+				break;
     default:
             $deps = [];
 }
 
+$url = $container->getUrlManager();
 $session = $container->getSessionManager();
 $user = $container->getRepositoryR(UserR::class)->find($session->get('id'));
-$renderer = $container->getRenderer($user);
+$renderer = $container->getRenderer($user, $url);
 
-$route->execute($renderer, $session, $user, $deps);
+$route->execute($renderer, $session, $user, $url, $deps);

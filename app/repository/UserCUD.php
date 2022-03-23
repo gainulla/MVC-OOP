@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Core\Database;
-use App\Model\UserModel;
+use App\Core\Token;
 
 class UserCUD implements \App\Contracts\CUDInterface
 {
@@ -16,29 +16,53 @@ class UserCUD implements \App\Contracts\CUDInterface
 
     public function save($user): bool
     {
-        if ($user->getAttr('id')) {
-            $done = $this->db->update('users', [
-                'id'            => $user->getAttr('id'),
-                'username'      => $user->getAttr('username'),
-                'email'         => $user->getAttr('email'),
-                'passwordHash'  => $user->getAttr('passwordHash')
-            ]);
+        if ($user->attr('id') === NULL) {
+            $this->db->insert('users');
         } else {
-            $done = $this->db->insert('users', [
-                'username'      => $user->getAttr('username'),
-                'email'         => $user->getAttr('email'),
-                'passwordHash'  => $user->getAttr('passwordHash')
-            ]);
+            $this->db->update('users');
         }
+
+        $this->db->set([
+            'username'      => $user->attr('username'),
+            'email'         => $user->attr('email'),
+            'passwordHash'  => $user->attr('passwordHash')
+        ]);
+
+        if ($user->attr('id')) {
+            $this->db->where(['id' => $user->attr('id')]);
+        }
+
+        $affectedRows = $this->db->execute()->rowCount();
 
         $this->db->reset();
 
-        return $done;
+        return $affectedRows > 0;
     }
 
     public function remove($user): bool
     {
         // remove user ...
-        return false;
+    }
+
+    public function startPasswordReset($user, Token $token)
+    {
+        $hashedToken = $token->generate()->getHash();
+        $passwordResetToken = $token->getValue();
+        $expiryTime = date('Y-m-d H:i:s', time() + 60 * 10); // 10 minutes
+
+        $affectedRows = $this->db
+            ->update('users')
+            ->set([
+                'passwordResetHash'      => $hashedToken,
+                'passwordResetExpiresAt' => $expiryTime
+            ])
+            ->where(['id' => $user->attr('id')])
+            ->execute()
+            ->debug()
+            ->rowCount();
+
+        $this->db->reset();
+
+        return ($affectedRows > 0) ? $passwordResetToken : false;
     }
 }

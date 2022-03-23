@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Core;
+namespace App\Libs;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\Extension\DebugExtension;
 use Twig\TwigFunction;
 
-class TwigTemplate
+class TwigTemplate implements \App\Contracts\TemplateInterface
 {
     private $templateDirPath;
 
@@ -16,9 +16,9 @@ class TwigTemplate
         $this->templateDirPath = $templateDirPath;
     }
 
-    public function template(string $template_file, array $data=[]): void
+    public function template(string $templateFile, array $data=[]): void
     {
-        $filename = "{$this->templateDirPath}/{$template_file}.twig";
+        $filename = "{$this->templateDirPath}/{$templateFile}.twig";
         if (!file_exists($filename)) {
             throw new \Exception("File '$filename' doesn't exist.");
         }
@@ -28,6 +28,6 @@ class TwigTemplate
         $twig->addExtension(new DebugExtension());
         $twig->enableDebug();
 
-        echo $twig->render("{$template_file}.twig", $data);
+        echo $twig->render("{$templateFile}.twig", $data);
     }
 }
