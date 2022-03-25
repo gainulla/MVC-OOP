@@ -1,0 +1,17 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+
+<section class="main">
+    <div class="centered-msg-box">
+
+        <h1>Пароль обновлён!</h1>
+        <p>
+            Нажмите на <a href="{{ url.for('auth/login') }}">войти</a>,
+            чтобы перейти на страницу авторизации.
+        </p>
+
+    </div>
+</section>
+
+{% endblock %}

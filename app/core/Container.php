@@ -74,6 +74,6 @@ class Container
 
     public function getMailer(): Swiftmailer
     {
-        return new Swiftmailer($this->config['smtp'], $this->config['adminEmail']);
+        return new Swiftmailer($this->config['smtp'], $this->config['admin_email']);
     }
 }

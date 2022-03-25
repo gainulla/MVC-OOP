@@ -15,39 +15,68 @@ $db = new Database(Connection::getInstance($config['db']));
 $container = new Container($config, $db);
 $route = new Route();
 
-switch ($route->handlerMethod())
-{
-	case 'HomeHandler::index':
-				$deps = [];
-				break;
-    case 'AuthHandler::login':
-				$deps[] = $container->getForm(UserModel::formLabels());
-				break;
-	case 'AuthHandler::loginForm':
-				$deps[] = $container->getRepositoryR(UserR::class);
-				$deps[] = $container->getForm(UserModel::formLabels());
-				break;
+$deps = [];
 
-	case 'AuthHandler::register':
-				$deps[] = $container->getForm(UserModel::formLabels());
-				break;
-	case 'AuthHandler::registerForm':
-				$deps[] = $container->getRepositoryR(UserR::class);
-				$deps[] = $container->getRepositoryCUD(UserCUD::class);
-				$deps[] = $container->getForm(UserModel::formLabels());
-				break;
-	case 'PasswordHandler::index':
-				$deps[] = $container->getForm(UserModel::formLabels());
-				break;
-	case 'PasswordHandler::resetForm':
-				$deps[] = $container->getToken();
-				$deps[] = $container->getRepositoryR(UserR::class);
-				$deps[] = $container->getRepositoryCUD(UserCUD::class);
-				$deps[] = $container->getForm(UserModel::formLabels());
-				$deps[] = $container->getMailer();
-				break;
+switch ($route->handlerClass())
+{
+	###############################################################
+	case 'HomeHandler':
+
+		if ($route->handlerMethod() == 'index') {
+			$deps = [];
+		}
+		break;
+
+	###############################################################
+	case 'AuthHandler':
+
+		if ($route->handlerMethod() == 'register') {
+			$deps[] = $container->getForm(UserModel::formLabels());
+		}
+		elseif ($route->handlerMethod() == 'login') {
+			$deps[] = $container->getForm(UserModel::formLabels());
+		}
+		elseif ($route->handlerMethod() == 'loginForm') {
+			$deps[] = $container->getRepositoryR(UserR::class);
+			$deps[] = $container->getForm(UserModel::formLabels());
+		}
+		elseif ($route->handlerMethod() == 'registerForm') {
+			$deps[] = $container->getRepositoryR(UserR::class);
+			$deps[] = $container->getRepositoryCUD(UserCUD::class);
+			$deps[] = $container->getForm(UserModel::formLabels());
+		}
+		break;
+
+	###############################################################
+	case 'PasswordResetHandler':
+
+		if ($route->handlerMethod() == 'index') {
+			$deps[] = $container->getForm(UserModel::formLabels());
+		}
+		elseif ($route->handlerMethod() == 'emailForm') {
+			$deps[] = $container->getToken();
+			$deps[] = $container->getRepositoryR(UserR::class);
+			$deps[] = $container->getRepositoryCUD(UserCUD::class);
+			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getMailer();
+		}
+		elseif ($route->handlerMethod() == 'reset') {
+			$deps[] = $container->getToken();
+			$deps[] = $container->getRepositoryR(UserR::class);
+			$deps[] = $container->getRepositoryCUD(UserCUD::class);
+			$deps[] = $container->getForm(UserModel::formLabels());
+		}
+		elseif ($route->handlerMethod() == 'resetForm') {
+			$deps[] = $container->getToken();
+			$deps[] = $container->getRepositoryR(UserR::class);
+			$deps[] = $container->getRepositoryCUD(UserCUD::class);
+			$deps[] = $container->getForm(UserModel::formLabels());
+		}
+		break;
+
+	################################################################
     default:
-            $deps = [];
+            // do nothing
 }
 
 $url = $container->getUrlManager();

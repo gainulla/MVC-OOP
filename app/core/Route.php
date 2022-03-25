@@ -26,7 +26,10 @@ class Route
             return;
         }
 
-        $class = sprintf("\App\Handlers\%sHandler", ucwords($url[0]));
+        $class = sprintf(
+            "\App\Handlers\%sHandler",
+            $this->convertToCamelCase($url[0], true)
+        );
 
         if (class_exists($class)) {
             $this->currentHandler = $class;
@@ -34,19 +37,12 @@ class Route
         }
 
         if (isset($url[1])) {
-            $method = '';
+            $method = $this->convertToCamelCase($url[1]);
 
-            if (strpos($url[1], '-') !== false) {
-                $explode = explode('-', $url[1]);
-                foreach ($explode as $x => $part) {
-                    $method .= ($x == 0) ? $part : ucfirst($part);
-                }
-            } else {
-                $method = $url[1];
-            }
             if (method_exists($this->currentHandler, $method)) {
                 $this->currentMethod = $method;
             }
+
             unset($url[1]);
         }
 
@@ -69,11 +65,22 @@ class Route
         );
     }
 
-    public function handlerMethod(): string
+    public function handler(): string
     {
         $arr = explode('\\', $this->currentHandler);
         $class = array_pop($arr);
         return "{$class}::{$this->currentMethod}";
+    }
+
+    public function handlerClass(): string
+    {
+        $arr = explode('\\', $this->currentHandler);
+        return array_pop($arr);
+    }
+
+    public function handlerMethod(): string
+    {
+        return $this->currentMethod;
     }
 
     private function getUrl(): array
@@ -85,5 +92,25 @@ class Route
             $url = explode('/', $url);
         }
         return $url;
+    }
+
+    private function convertToCamelCase($string, $firstIsUppercase=false)
+    {
+        if (strpos($string, '-') !== false) {
+            $explode = explode('-', $string);
+            $string = "";
+
+            foreach ($explode as $x => $part) {
+                if (!$firstIsUppercase) {
+                    $string .= ($x == 0) ? $part : ucfirst($part);
+                } else {
+                    $string .= ucfirst($part);
+                }
+            }
+        } else {
+            $string = $firstIsUppercase ? ucfirst($string) : $string;
+        }
+
+        return $string;
     }
 }

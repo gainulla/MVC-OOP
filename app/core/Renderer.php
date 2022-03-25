@@ -37,6 +37,16 @@ class Renderer
             'user' => $this->user
         ]);
 
-        $this->templateEngine->template($template, $data);
+        echo $this->templateEngine->template($template, $data);
+    }
+
+    public function getTemplate(string $template, array $data=[]): string
+    {
+        $data = array_merge($data, [
+            'url'  => $this->url,
+            'user' => $this->user
+        ]);
+
+        return $this->templateEngine->template($template, $data);
     }
 }

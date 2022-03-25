@@ -33,12 +33,22 @@ class Swiftmailer implements \App\Contracts\MailerInterface
 
 	public function mail($to, $subject, $textPlain, $textHtml): void
 	{
-		$this->message->setTo([$to]);
-		$this->message->setSubject($subject);
-		$this->message->setBody($textPlain, 'text/plain');
-		$this->message->addPart($textHtml, 'text/html');
-		$this->message->setFrom([$this->adminEmail]);
+		try {
+			$this->message->setTo([$to]);
+			$this->message->setSubject($subject);
+			$this->message->setBody($textPlain, 'text/plain');
+			$this->message->addPart($textHtml, 'text/html');
+			$this->message->setFrom([$this->adminEmail]);
+			$this->mailer->send($this->message);
 
-		$this->mailer->send($this->message);
+		} catch(Exception $e) {
+			echo 'Что-то пошло не так, не удалось отправить эл. письмо.';
+
+			if (DEV_MODE) {
+				echo $e->getMessage();
+			}
+
+			exit;
+		}
 	}
 }

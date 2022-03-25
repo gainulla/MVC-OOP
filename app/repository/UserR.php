@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Core\Database;
+use App\Core\Token;
 use App\Models\UserModel;
 
 class UserR implements \App\Contracts\RInterface
@@ -70,5 +71,21 @@ class UserR implements \App\Contracts\RInterface
         $this->db->reset();
 
         return (!empty($user) ? false : true);
+    }
+
+    public function getByPasswordResetHash(Token $token, string $resetToken, $attr=['*']): UserModel
+    {
+        $tokenHash = $token->generate($resetToken)->getHash();
+
+        $user = $this->db
+            ->select($attr)
+            ->from('users')
+            ->where(['passwordResetHash' => $tokenHash])
+            ->execute()
+            ->fetch($this->modelPath);
+
+        $this->db->reset();
+
+        return (!empty($user) ? $user[0] : new UserModel());
     }
 }

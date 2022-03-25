@@ -20,7 +20,7 @@ class UrlManager
             $prop = "{$ext}DirUri";
             return $this->{$prop} . $target . ".{$ext}";
         } else {
-            return BASE_URL . $target;
+            return BASE_URL . ltrim($target, '/');
         }
     }
 }

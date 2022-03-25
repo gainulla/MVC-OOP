@@ -16,7 +16,7 @@ class TwigTemplate implements \App\Contracts\TemplateInterface
         $this->templateDirPath = $templateDirPath;
     }
 
-    public function template(string $templateFile, array $data=[]): void
+    public function template(string $templateFile, array $data=[]): string
     {
         $filename = "{$this->templateDirPath}/{$templateFile}.twig";
         if (!file_exists($filename)) {
@@ -28,6 +28,6 @@ class TwigTemplate implements \App\Contracts\TemplateInterface
         $twig->addExtension(new DebugExtension());
         $twig->enableDebug();
 
-        echo $twig->render("{$templateFile}.twig", $data);
+        return $twig->render("{$templateFile}.twig", $data);
     }
 }

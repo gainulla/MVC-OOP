@@ -2,41 +2,41 @@
 
 {% block content %}
 
-    <div class="row">
+<div class="row">
 
-        <section class="main">
-            <form id="registerForm" action="{{ url.for('auth/register-form') }}" method="POST">
-                <fieldset>
-                    <h2>Регистрация</h2>
+    <section class="main">
+        <form id="registerForm" action="{{ url.for('auth/register-form') }}" method="POST">
+            <fieldset>
+                <h2>Регистрация</h2>
 
-                    {% if form.getErrors()|length > 0 %}
-                        <ul class="error">
-                            {% for error in form.getErrors() %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+                {% if form.getErrors()|length > 0 %}
+                    <ul class="error">
+                        {% for error in form.getErrors() %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
-                    <div>
-                        <label>{{ form.getFieldLabel('username') }}</label>
-                        <input type="text" name="username" value="{{ form.inputs.username }}">
-                    <div>
-                    <div>
-                        <label>{{ form.getFieldLabel('email') }}</label>
-                        <input type="email" name="email" value="{{ form.inputs.email }}" />
-                    </div>
-                    <div class="password">
-                        <label>{{ form.getFieldLabel('password') }}</label>
-                        <input id="password" type="password" name="password" value="{{ form.inputs.password }}" />
-                        <span class="password__icon-eye" id="togglePassword" />
-                    </div>
-                    <div>
-                        <button type="submit">Отправить</button>
-                    </div>
-                </fieldset>
-            </form>
-        </section>
+                <div>
+                    <label>{{ form.getFieldLabel('username') }}</label>
+                    <input type="text" name="username" value="{{ form.input('username') }}">
+                <div>
+                <div>
+                    <label>{{ form.getFieldLabel('email') }}</label>
+                    <input type="email" name="email" value="{{ form.input('email') }}" />
+                </div>
+                <div class="password">
+                    <label>{{ form.getFieldLabel('password') }}</label>
+                    <input id="password" type="password" name="password" value="{{ form.input('password') }}" />
+                    <span class="password__icon-eye" id="togglePassword" />
+                </div>
+                <div>
+                    <button type="submit">Отправить</button>
+                </div>
+            </fieldset>
+        </form>
+    </section>
 
-    </div>
+</div>
 
 {% endblock %}

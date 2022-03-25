@@ -18,8 +18,8 @@ class AuthHandler extends Handler
 
     public function loginForm(UserR $userR, Form $form)
     {
-        $email = $form->getInputs('email');
-        $password = $form->getInputs('password');
+        $email = $form->input('email');
+        $password = $form->input('password');
 
         $user = $userR->findByEmail($email, ['passwordHash', 'id']);
 
@@ -46,11 +46,11 @@ class AuthHandler extends Handler
         $form->validate($userR, UserModel::validationRules());
 
         if ($form->validationPassed()) {
-            $user = new UserModel($form->getInputs());
+            $user = new UserModel($form->inputAll());
+            $userCUD->save($user);
+            $this->session->set('success', 'Регистрация прошла успешно!');
+            $this->redirect('home/index');
 
-            if ($userCUD->save($user)) {
-                $this->redirect('home/index');
-            }
         } else {
             $form->intoSession('register_form', $this->session);
             $this->redirect('auth/register');

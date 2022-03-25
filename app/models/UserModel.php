@@ -39,10 +39,21 @@ class UserModel implements \App\Contracts\ModelInterface
         return $this->{$attr};
     }
 
+    public function attrAll()
+    {
+        $attributes = [];
+
+        foreach ($this as $prop => $value) {
+            $attributes[$prop] = $value;
+        }
+
+        return $attributes;
+    }
+
     public static function formLabels(): array
     {
         return [
-            'email' => 'Эл. адрес',
+            'email'    => 'Эл. адрес',
             'username' => 'Логин',
             'password' => 'Пароль',
         ];
@@ -51,20 +62,20 @@ class UserModel implements \App\Contracts\ModelInterface
     public function validationRules(): array
     {
         return [
-            'email'         => [
-                                'required',
-                                ['dataType' => Email::class],
-                                'unique'
-                              ],
-            'username'      => [
-                                'required',
-                                ['dataType' => Username::class],
-                                'unique'
-                              ],
-            'password'   => [
-                                'required',
-                                ['dataType' => Password::class]
-                            ]
+            'email'             => [
+                                    'required',
+                                    ['dataType' => Email::class],
+                                    'unique'
+                                ],
+            'username'          => [
+                                    'required',
+                                    ['dataType' => Username::class],
+                                    'unique'
+                                ],
+            'password'          => [
+                                    'required',
+                                    ['dataType' => Password::class]
+                                ]
         ];
     }
 }

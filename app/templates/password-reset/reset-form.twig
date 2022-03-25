@@ -1,0 +1,37 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+
+<section class="main">
+    <div class="centered-msg-box">
+
+        <form id="passwordResetForm" action="{{ url.for('password-reset/reset-form') }}" method="POST">
+            <fieldset>
+                <h2>Восстановление доступа</h2>
+
+                {% if form.getErrors()|length > 0 %}
+                    <ul class="error">
+                        {% for error in form.getErrors() %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <input type="hidden" name="token" value="{{ token }}" />
+
+                <div class="password">
+                    <label>Новый пароль</label>
+                    <input id="password" type="password" name="password" value="" placeholder="{{ form.getFieldLabel('password') }}" />
+                    <span class="password__icon-eye" id="togglePassword" />
+                </div>
+
+                <div>
+                    <button type="submit">Сменить пароль</button>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

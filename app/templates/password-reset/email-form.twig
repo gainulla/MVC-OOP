@@ -1,0 +1,23 @@
+{% extends 'layout/layout.twig' %}
+
+{% block content %}
+
+<section class="main">
+
+    <form id="emailForm" action="{{ url.for('password-reset/email-form') }}" method="POST">
+        <fieldset>
+            <h2>Восстановление доступа</h2>
+
+            <div>
+                <input id="email" type="email" name="email" value="" placeholder="{{ form.getFieldLabel('email') }}" />
+            </div>
+
+            <div>
+                <button type="submit">Отправить</button>
+            </div>
+        </fieldset>
+    </form>
+
+</section>
+
+{% endblock %}

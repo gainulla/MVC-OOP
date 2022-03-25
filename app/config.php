@@ -52,5 +52,5 @@ return [
         'secure'    => secrets('smtp.secure') ?? "",
     ],
 
-    'adminEmail'     => "yusupovgz@yandex.ru",
+    'admin_email'     => secrets('admin_email'),
 ];

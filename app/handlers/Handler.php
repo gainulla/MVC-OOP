@@ -31,6 +31,11 @@ class Handler
 
     protected function redirect($urlPath)
     {
-        header("Location: " . BASE_URL . ltrim($urlPath, '/'));
+        header("Location: " . $this->url->for($urlPath));
+    }
+
+    protected function getParam($index)
+    {
+        return (isset($this->params[$index]) ? $this->params[$index] : null);
     }
 }

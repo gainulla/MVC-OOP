@@ -6,17 +6,17 @@ use App\Core\SessionManager;
 
 class Form
 {
-    private $inputs = [];
+    private $data = [];
     private $errors = [];
     private $formLabelsList = [];
 
     public function __construct(array $formLabelsList=[])
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->inputs = $_POST;
+            $this->data = $_POST;
 
         } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $this->inputs = $_GET;
+            $this->data = $_GET;
         }
 
         $this->formLabelsList = $formLabelsList;
@@ -25,7 +25,7 @@ class Form
     public function intoSession($sessionName, SessionManager $session)
     {
         $session->set($sessionName, serialize([
-            'inputs' => $this->getInputs(),
+            'inputs' => $this->inputAll(),
             'errors' => $this->getErrors()
         ]));
     }
@@ -35,7 +35,7 @@ class Form
         if ($session->has($sessionName)) {
             $data = unserialize($session->get($sessionName, true));
             foreach ($data['inputs'] as $name => $value) {
-                $this->inputs[$name] = $value;
+                $this->data[$name] = $value;
             }
             foreach ($data['errors'] as $name => $error) {
                 $this->errors[$name] = $error;
@@ -43,13 +43,14 @@ class Form
         }
     }
 
-    public function getInputs($name='')
+    public function input($name="")
     {
-        if ($name) {
-            return $this->inputs[$name] ?? "";
-        } else {
-            return $this->inputs;
-        }
+        return $this->data[$name] ?? NULL;
+    }
+
+    public function inputAll()
+    {
+        return $this->data;
     }
 
     public function getErrors()
@@ -63,14 +64,22 @@ class Form
     }
 
     public function getFieldLabel($inputName) {
-        return $this->formLabelsList[$inputName];
+        return (isset($this->formLabelsList[$inputName])
+                ? $this->formLabelsList[$inputName]
+                : FALSE
+        );
     }
 
     public function validate($repository, $validationRules)
     {
-        foreach ($this->inputs as $name => $value) {
+        foreach ($this->data as $name => $value) {
             $field = $this->getFieldLabel($name);
-            $dataType = false;
+
+            if (!$field) {
+                continue;
+            }
+
+            $dataType = FALSE;
 
             $value = trim($value);
 
@@ -101,7 +110,7 @@ class Form
             }
 
             if (!isset($this->errors[$name])) {
-                $this->inputs[$name] = $value;
+                $this->data[$name] = $value;
             }
         }
 

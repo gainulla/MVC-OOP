@@ -22,11 +22,7 @@ class UserCUD implements \App\Contracts\CUDInterface
             $this->db->update('users');
         }
 
-        $this->db->set([
-            'username'      => $user->attr('username'),
-            'email'         => $user->attr('email'),
-            'passwordHash'  => $user->attr('passwordHash')
-        ]);
+        $this->db->set($user->attrAll());
 
         if ($user->attr('id')) {
             $this->db->where(['id' => $user->attr('id')]);
@@ -44,25 +40,50 @@ class UserCUD implements \App\Contracts\CUDInterface
         // remove user ...
     }
 
-    public function startPasswordReset($user, Token $token)
+    public function addPasswordResetHash(Token $token, $user)
     {
-        $hashedToken = $token->generate()->getHash();
-        $passwordResetToken = $token->getValue();
-        $expiryTime = date('Y-m-d H:i:s', time() + 60 * 10); // 10 minutes
+        $tokenHash = $token->generate()->getHash();
+        $expiryTime = date('Y-m-d H:i:s', time() + 60 * 60);
 
         $affectedRows = $this->db
             ->update('users')
             ->set([
-                'passwordResetHash'      => $hashedToken,
+                'passwordResetHash'      => $tokenHash,
                 'passwordResetExpiresAt' => $expiryTime
             ])
             ->where(['id' => $user->attr('id')])
             ->execute()
-            ->debug()
             ->rowCount();
 
         $this->db->reset();
 
-        return ($affectedRows > 0) ? $passwordResetToken : false;
+        return ($affectedRows > 0) ? $token->getValue() : false;
     }
+
+    /////////////////////////////////////////////////////////////////
+    public function resetPassword($password)
+	{
+		$this->password = $password;
+		$this->validate();
+
+		if (empty($this->errors)) {
+			$password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+
+			$sql = 'UPDATE users
+							SET password_hash = :password_hash,
+									password_reset_hash = NULL,
+									password_reset_expires_at = NULL
+							WHERE id = :id';
+
+			$db = static::connect();
+			$stmt = $db->prepare($sql);
+
+			$stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+			$stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
+
+			return $stmt->execute();
+		}
+
+		return false;
+	}
 }

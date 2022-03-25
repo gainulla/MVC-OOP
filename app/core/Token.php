@@ -5,11 +5,11 @@ namespace App\Core;
 class Token
 {
 	private $token;
-	private $secret_key;
+	private $secretKey;
 
 	public function __construct(string $secretKey)
 	{
-		$this->secret_key = $secretKey;
+		$this->secretKey = $secretKey;
 	}
 
 	public function generate($tokenValue = null)
@@ -32,6 +32,6 @@ class Token
 	public function getHash()
 	{
         // sha256 = 64 chars
-		return hash_hmac('sha256', $this->token, $this->secret_key);
+		return hash_hmac('sha256', $this->token, $this->secretKey);
 	}
 }
