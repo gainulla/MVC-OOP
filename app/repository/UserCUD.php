@@ -59,31 +59,4 @@ class UserCUD implements \App\Contracts\CUDInterface
 
         return ($affectedRows > 0) ? $token->getValue() : false;
     }
-
-    /////////////////////////////////////////////////////////////////
-    public function resetPassword($password)
-	{
-		$this->password = $password;
-		$this->validate();
-
-		if (empty($this->errors)) {
-			$password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-
-			$sql = 'UPDATE users
-							SET password_hash = :password_hash,
-									password_reset_hash = NULL,
-									password_reset_expires_at = NULL
-							WHERE id = :id';
-
-			$db = static::connect();
-			$stmt = $db->prepare($sql);
-
-			$stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
-			$stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
-
-			return $stmt->execute();
-		}
-
-		return false;
-	}
 }
