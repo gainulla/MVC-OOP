@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 02 2022 г., 16:36
+-- Время создания: Апр 02 2022 г., 17:36
 -- Версия сервера: 10.4.18-MariaDB
 -- Версия PHP: 7.4.16
 
@@ -41,9 +41,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `passwordHash`, `passwordResetHash`, `passwordResetExpiresAt`) VALUES
-(1, 'dale', 'dale@mail.io', '$2y$10$12snaaY5w/50Su1B3mDCa.C0qrkUkmoXSvW.rt3S/SU32ddolhTge', 'f04b916d5ae0fd91bd35b10df3661d60cc2702ee2871c211b8d659bbe9c0b811', '2022-04-02 14:32:23'),
-(2, 'kate', 'kate@mail.io', '$2y$10$t2eixxylA1EHxusCY6QEJ.9ltb746MdL9aDVllL6B/BK3BSHF7uQG', NULL, NULL),
-(3, 'jack', 'jack@mail.io', '$2y$10$aer22X1dAxPpB2Pul0V5dOcGCGPoss6R1hUq6NYCdekl37H0Jsl1G', 'e2076640a19df246cb7b421177775eb042d9acc65ed3daa347937ee548934ec1', '2022-03-25 14:54:02');
+(1, 'admin', 'admin@mail.io', '$2y$10$ZGYOkvmNXS1.m6PtlHemueA.ZWKP/03EjP4Ul9IoK9.i/ZF.QXy6i', '7ce281b60cd83f15dfb3136c89975ed5f391e785967af8a105019a45affa111a', '2022-04-02 18:31:37');
 
 --
 -- Индексы сохранённых таблиц
@@ -64,7 +62,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
