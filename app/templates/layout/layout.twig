@@ -12,6 +12,7 @@
 
     <main class="expanse-girth">
         <div class="box">
+            <img src="{{ url.for('dummy-logo', 'png') }}" alt="Logo" class="logo" />
 
             <ul class="menu">
             {% for item in menuReader.read(url, user.isLoggedIn()) %}
