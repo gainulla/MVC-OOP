@@ -30,6 +30,8 @@ return [
     'img_dir_uri'    => BASE_URL . 'img/',
     'js_dir_uri'     => BASE_URL . 'js/',
 
+    'allow_img_ext'  => ['jpg', 'jpeg', 'png'],
+
     'app_root'       => realpath(__DIR__),
     'template_path'  => realpath(__DIR__ . '/templates'),
 
