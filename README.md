@@ -7,7 +7,7 @@ Set your database settings in the `config.php` inside the app directory.
 Also for the initial app running you should set the `BASE_URL` 
 and set RewriteBase in the `.htacces` file inside `www` directory. 
 After these settings done, you can start the app in your browser. 
-To login enter email address: `admin@mail.io`, and password `admin01A`
+Test login credentials: `admin@mail.io`/`admin01A`
 ### Further Settings
 To be able to register a new user you should set your `SMTP` settings. 
 For the `Fontawesome` icons to work set your fontawesome embed code. 
