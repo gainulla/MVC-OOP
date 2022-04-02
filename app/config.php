@@ -8,7 +8,9 @@ function secrets($dottedPath)
         require_once realpath(__DIR__ . '/secrets.php');
         $included = true;
     } else {
-        return getSecret($dottedPath);
+        if (function_exists('getSecret')) {
+            return getSecret($dottedPath);
+        }
     }
 
     return null;
@@ -20,7 +22,7 @@ define('BASE_URL', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/adv-p
 return [
     'db'  => [
         'host'       => secrets('db.host') ?? 'localhost',
-        'name'       => secrets('db.name') ?? '',
+        'name'       => secrets('db.name') ?? 'db_oop_ds',
         'user'       => secrets('db.user') ?? 'root',
         'password'   => secrets('db.password') ?? '',
         'charset'    => 'utf8',
@@ -44,7 +46,7 @@ return [
 
     // your secret key to be used to generate a user token
     // 256-bit key requirement, https://randomkeygen.com
-    'token_key' => secrets('token_key') ?? 'your secret key',
+    'token_key' => secrets('token_key') ?? 'ERH4t3udlKHHCiAXiVfPpDRN7lIz65hA',
 
     'smtp'           => [
         'host'      => secrets('smtp.host') ?? 'localhost',
