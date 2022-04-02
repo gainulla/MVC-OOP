@@ -48,6 +48,7 @@ class Container
             $this->config['css_dir_uri'],
             $this->config['img_dir_uri'],
             $this->config['js_dir_uri'],
+            $this->config['allow_img_ext']
         );
     }
 

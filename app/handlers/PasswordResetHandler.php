@@ -99,14 +99,12 @@ class PasswordResetHandler extends Handler
         $password = $form->input('password');
 
         $user = $userR->getByPasswordResetHash($token, $resetToken);
-        $userAtts = $user->attrAll();
 
         if ($user->attr('id')) {
             $form->validate($userR, UserModel::validationRules());
 
             if ($form->validationPassed()) {
-                $userAtts['password'] = $form->input('password');
-                $user = new UserModel($userAtts);
+                $user->fill(['password' => $form->input('password')]);
                 $userCUD->save($user);
                 $this->redirect('password-reset/reset-success');
             } else {

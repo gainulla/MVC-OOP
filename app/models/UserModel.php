@@ -6,27 +6,37 @@ use App\DataTypes\Email;
 use App\DataTypes\Username;
 use App\DataTypes\Password;
 
-class UserModel implements \App\Contracts\ModelInterface
+final class UserModel implements \App\Contracts\ModelInterface
 {
-    protected $id;
-    protected $email;
-    protected $username;
-    protected $passwordHash;
-    protected $passwordResetHash;
-    protected $passwordResetExpiresAt;
+    protected $id = NULL;
+    protected $email = NULL;
+    protected $username = NULL;
+    protected $passwordHash = NULL;
+    protected $passwordResetHash = NULL;
+    protected $passwordResetExpiresAt = NULL;
 
     public function __construct(array $data=[])
     {
         if (!empty($data)) {
-            $this->id = $data['id'] ?? NULL;
-            $this->email = $data['email'] ?? NULL;
-            $this->username = $data['username'] ?? NULL;
-            $this->passwordHash = (isset($data['password']) && $data['password'])
-                                ? password_hash($data['password'], PASSWORD_BCRYPT)
-                                : NULL;
-            $this->passwordResetHash = $data['passwordResetHash'] ?? NULL;
-            $this->passwordResetExpiresAt = $data['passwordResetExpiresAt'] ?? NULL;
+            $this->fill($data);
         }
+    }
+
+    public function fill(array $data): void
+    {
+        $this->id = $data['id'] ?? $this->id;
+
+        $this->email = $data['email'] ?? $this->email;
+
+        $this->username = $data['username'] ?? $this->username;
+
+        $this->passwordHash = (isset($data['password']) && $data['password'])
+                            ? password_hash($data['password'], PASSWORD_BCRYPT)
+                            : $this->passwordHash;
+
+        $this->passwordResetHash = $data['passwordResetHash'] ?? $this->passwordResetHash;
+
+        $this->passwordResetExpiresAt = $data['passwordResetExpiresAt'] ?? $this->passwordResetExpiresAt;
     }
 
     public function isLoggedIn()
@@ -39,7 +49,7 @@ class UserModel implements \App\Contracts\ModelInterface
         return $this->{$attr};
     }
 
-    public function attrAll()
+    public function attrAll(): array
     {
         $attributes = [];
 
