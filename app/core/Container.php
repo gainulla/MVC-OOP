@@ -11,7 +11,7 @@ use App\Core\UrlManager;
 use App\Core\SessionManager;
 use App\Core\Token;
 use App\Libs\TwigTemplate;
-use App\Libs\Swiftmailer;
+use App\Libs\SwiftMailer;
 use App\Models\UserModel;
 use App\Contracts\RInterface;
 use App\Contracts\CUDInterface;
@@ -73,8 +73,8 @@ class Container
         return new Token($this->config['token_key']);
     }
 
-    public function getMailer(): Swiftmailer
+    public function getMailer(): SwiftMailer
     {
-        return new Swiftmailer($this->config['smtp'], $this->config['admin_email']);
+        return new SwiftMailer($this->config['smtp'], $this->config['admin_email']);
     }
 }

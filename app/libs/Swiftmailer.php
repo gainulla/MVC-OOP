@@ -6,7 +6,7 @@ use Swift_SmtpTransport;
 use Swift_Mailer;
 use Swift_Message;
 
-class Swiftmailer implements \App\Contracts\MailerInterface
+class SwiftMailer implements \App\Contracts\MailerInterface
 {
 	private $mailer;
 	private $message;
