@@ -42,10 +42,11 @@ class SwiftMailer implements \App\Contracts\MailerInterface
 			$this->mailer->send($this->message);
 
 		} catch(Exception $e) {
-			echo 'Что-то пошло не так, не удалось отправить эл. письмо.';
 
 			if (DEV_MODE) {
 				echo $e->getMessage();
+			} else {
+				echo 'Что-то пошло не так, не удалось отправить эл. письмо.';
 			}
 
 			exit;
