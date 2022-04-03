@@ -7,7 +7,7 @@ use App\Core\Token;
 use App\Repository\UserR;
 use App\Repository\UserCUD;
 use App\Models\UserModel;
-use App\Libs\SwiftMailer;
+use App\Libs\SymfonyMailer;
 
 class PasswordResetHandler extends Handler
 {
@@ -23,7 +23,7 @@ class PasswordResetHandler extends Handler
         UserR $userR,
         UserCUD $userCUD,
         Form $form,
-        SwiftMailer $mailer
+        SymfonyMailer $mailer
     )
     {
         $email = $form->input('email');
