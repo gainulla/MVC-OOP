@@ -9,5 +9,5 @@ and set RewriteBase in the `.htacces` file inside `www` directory.
 After these settings done, you can start the app in your browser. 
 Test login credentials: `admin@mail.io`/`admin01A`
 ### Further Settings
-To be able to register a new user you should set your `SMTP` settings. 
+To be able to restore a password you should set your `SMTP` settings. 
 For the `Fontawesome` icons to work set your fontawesome embed code. 
