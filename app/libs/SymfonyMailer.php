@@ -18,7 +18,7 @@ class SymfonyMailer implements \App\Contracts\MailerInterface
 
         foreach ($required as $setting) {
             if (!isset($setting)) {
-                throw new InvalidArgumentException("The '{$setting}' is required!");
+                throw new InvalidArgumentException("Required parameter is missing!");
             }
         }
 
