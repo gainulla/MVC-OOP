@@ -7,8 +7,8 @@
         {% if successMessage %}
             <p class="success">{{ successMessage }}</p>
         {% endif %}
-        {% if (user.isLoggedIn()) %}
-            <p class="success">Hello, <strong>{{ user.attr('username') }}</strong>!</p>
+        {% if (auth.isLoggedIn()) %}
+            <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
         {% endif %}
     </section>
 

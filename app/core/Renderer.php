@@ -2,29 +2,29 @@
 
 namespace App\Core;
 
+use App\Core\Auth;
 use App\Core\UrlManager;
 use App\Libs\TwigTemplate;
-use App\Models\UserModel;
 
 class Renderer
 {
     private $templateEngine;
     private $menuReader;
     private $url;
-    private $user;
+    private $auth;
     private $key;
 
     public function __construct(
         TwigTemplate $templateEngine,
         MenuReader $menuReader,
         UrlManager $url,
-        UserModel $user,
+        Auth $auth,
         array $key
     ) {
         $this->templateEngine = $templateEngine;
         $this->menuReader = $menuReader;
         $this->url = $url;
-        $this->user = $user;
+        $this->auth = $auth;
         $this->key = $key;
     }
 
@@ -34,7 +34,7 @@ class Renderer
             'menuReader' => $this->menuReader,
             'url'  => $this->url,
             'key'  => $this->key,
-            'user' => $this->user
+            'auth' => $this->auth
         ]);
 
         echo $this->templateEngine->template($template, $data);

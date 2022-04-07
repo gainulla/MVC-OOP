@@ -10,9 +10,9 @@ use App\Core\MenuReader;
 use App\Core\UrlManager;
 use App\Core\SessionManager;
 use App\Core\Token;
+use App\Core\Auth;
 use App\Libs\TwigTemplate;
 use App\Libs\SymfonyMailer;
-use App\Models\UserModel;
 use App\Contracts\RInterface;
 use App\Contracts\CUDInterface;
 
@@ -50,13 +50,13 @@ class Container
         );
     }
 
-    public function getRenderer(UserModel $user, UrlManager $url): Renderer
+    public function getRenderer(Auth $auth, UrlManager $url): Renderer
     {
         return new Renderer(
             new TwigTemplate($this->config['template_path']),
             new MenuReader(),
             $url,
-            $user,
+            $auth,
             $this->config['key']
         );
     }

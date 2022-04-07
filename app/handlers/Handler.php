@@ -5,26 +5,27 @@ namespace App\Handlers;
 use App\Core\Renderer;
 use App\Core\UrlManager;
 use App\Core\SessionManager;
-use App\Models\UserModel;
+use App\Core\Auth;
 
 class Handler
 {
     protected $renderer;
     protected $session;
     protected $url;
-    protected $user;
+    protected $auth;
     protected $params;
 
     public function __construct(
         Renderer $renderer,
         SessionManager $session,
-        UserModel $user,
+        Auth $auth,
         UrlManager $url,
         array $params
-    ) {
+    )
+    {
         $this->renderer = $renderer;
         $this->session = $session;
-        $this->user = $user;
+        $this->auth = $auth;
         $this->url = $url;
         $this->params = $params;
     }

@@ -5,7 +5,7 @@ namespace App\Core;
 use App\Core\Renderer;
 use App\Core\UrlManager;
 use App\Core\SessionManager;
-use App\Models\UserModel;
+use App\Core\Auth;
 
 class Route
 {
@@ -52,13 +52,19 @@ class Route
     public function execute(
         Renderer $renderer,
         SessionManager $session,
-        UserModel $user,
+        Auth $authUser,
         UrlManager $url,
         $dependencies = []): void
     {
         call_user_func_array(
             [
-                new $this->currentHandler($renderer, $session, $user, $url, $this->params),
+                new $this->currentHandler(
+                    $renderer,
+                    $session,
+                    $authUser,
+                    $url,
+                    $this->params
+                ),
                 $this->currentMethod
             ],
             $dependencies

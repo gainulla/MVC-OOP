@@ -27,7 +27,7 @@ class AuthHandler extends Handler
             $errors[] = 'Неверный эл. адрес или пароль.';
             $this->renderer->render('auth/login', ['errors' => $errors]);
         } else {
-            $this->session->set('id', $user->attr('id'));
+            $this->session->set('logged_in_user', $user->attr('id'));
             $this->redirect('home/index');
         }
     }

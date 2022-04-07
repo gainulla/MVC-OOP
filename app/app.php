@@ -4,6 +4,7 @@ use App\Core\Route;
 use App\Core\Container;
 use App\Core\Database;
 use App\Core\Connection;
+use App\Core\Auth;
 use App\Models\UserModel;
 use App\Repository\UserR;
 use App\Repository\UserCUD;
@@ -79,9 +80,16 @@ switch ($route->handlerClass())
             // do nothing
 }
 
-$url = $container->getUrlManager();
 $session = $container->getSessionManager();
-$user = $container->getRepositoryR(UserR::class)->find($session->get('id'));
-$renderer = $container->getRenderer($user, $url);
 
-$route->execute($renderer, $session, $user, $url, $deps);
+$auth = new Auth();
+
+if ($session->has('logged_in_user')) {
+	$user = $container->getRepositoryR(UserR::class)->find($session->get('logged_in_user'));
+	$auth->authenticate($user);
+}
+
+$url = $container->getUrlManager();
+$renderer = $container->getRenderer($auth, $url);
+
+$route->execute($renderer, $session, $auth, $url, $deps);

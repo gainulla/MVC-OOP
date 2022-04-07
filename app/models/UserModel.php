@@ -39,11 +39,6 @@ final class UserModel implements \App\Contracts\ModelInterface
         $this->passwordResetExpiresAt = $data['passwordResetExpiresAt'] ?? $this->passwordResetExpiresAt;
     }
 
-    public function isLoggedIn()
-    {
-        return $this->id !== NULL;
-    }
-
     public function attr(string $attr)
     {
         return $this->{$attr};
