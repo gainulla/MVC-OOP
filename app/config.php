@@ -28,9 +28,11 @@ return [
         'charset'    => 'utf8',
     ],
 
-    'css_dir_uri'    => BASE_URL . 'css/',
-    'img_dir_uri'    => BASE_URL . 'img/',
-    'js_dir_uri'     => BASE_URL . 'js/',
+    'assets_uri'     => [
+        'css_dir_uri'    => BASE_URL . 'css/',
+        'img_dir_uri'    => BASE_URL . 'img/',
+        'js_dir_uri'     => BASE_URL . 'js/',
+    ],
 
     'allow_img_ext'  => ['jpg', 'jpeg', 'png'],
 

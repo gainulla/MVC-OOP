@@ -10,15 +10,22 @@ class UrlManager
     private $allowImgExt;
 
     public function __construct(
-        string $cssDirUri,
-        string $imgDirUri,
-        string $jsDirUri,
+        array $assetsUri,
         array $allowImgExt
     )
     {
-        $this->cssDirUri = $cssDirUri;
-        $this->imgDirUri = $imgDirUri;
-        $this->jsDirUri  = $jsDirUri;
+		$required = ['css_dir_uri','js_dir_uri','img_dir_uri'];
+		extract($assetsUri);
+
+        foreach ($required as $uri) {
+			if (!isset($uri)) {
+				throw new \InvalidArgumentException("Required parameter is missing!");
+			}
+		}
+
+        $this->cssDirUri = $css_dir_uri;
+        $this->jsDirUri  = $js_dir_uri;
+        $this->imgDirUri = $img_dir_uri;
         $this->allowImgExt = $allowImgExt;
     }
 
