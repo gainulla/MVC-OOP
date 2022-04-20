@@ -8,7 +8,7 @@ interface ModelInterface
     public function fill(array $data): void;
 
     // get model attribute
-    public function attr(string $attr);
+    public function attr(string $attr); // mixed
 
     // get all model attributes
     public function attrAll(): array;

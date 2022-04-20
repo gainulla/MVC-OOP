@@ -29,7 +29,7 @@ class PasswordResetHandler extends Handler
         $email = $form->input('email');
         $user = $userR->findByEmail($email, ['id','email']);
 
-        if ($user->attr('id')) {
+        if ($user) {
             $resetToken = $userCUD->addPasswordResetHash($token, $user);
             $this->session->set('reset_token', $resetToken);
 
@@ -75,7 +75,7 @@ class PasswordResetHandler extends Handler
                 'passwordResetExpiresAt'
             ]);
 
-            if ($user->attr('id')) {
+            if ($user) {
                 if (strtotime($user->attr('passwordResetExpiresAt')) > time()) {
                     $this->renderer->render('password-reset/reset-form', [
                         'token' => $resetToken,
@@ -100,7 +100,7 @@ class PasswordResetHandler extends Handler
 
         $user = $userR->getByPasswordResetHash($token, $resetToken);
 
-        if ($user->attr('id')) {
+        if ($user) {
             $form->validate($userR, UserModel::validationRules());
 
             if ($form->validationPassed()) {

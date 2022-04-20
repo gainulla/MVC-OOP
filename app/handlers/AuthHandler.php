@@ -23,7 +23,7 @@ class AuthHandler extends Handler
 
         $user = $userR->findByEmail($email, ['passwordHash', 'id']);
 
-        if (!$user->attr('id') || !password_verify($password, $user->attr('passwordHash'))) {
+        if (!$user || !password_verify($password, $user->attr('passwordHash'))) {
             $errors[] = 'Неверный эл. адрес или пароль.';
             $this->renderer->render('auth/login', ['errors' => $errors]);
         } else {

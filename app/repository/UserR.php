@@ -29,7 +29,7 @@ class UserR implements \App\Contracts\RInterface
         return (!empty($users) ? $users : []);
     }
 
-    public function find($id, $fields=['*']): UserModel
+    public function find($id, $fields=['*'])
     {
         $user = $this->db
                 ->select($fields)
@@ -38,10 +38,10 @@ class UserR implements \App\Contracts\RInterface
                 ->execute()
                 ->fetch($this->modelPath);
 
-        return (!empty($user) ? $user[0] : new UserModel());
+        return (!empty($user) ? $user[0] : NULL);
     }
 
-    public function findByEmail($email, $fields=['*']): UserModel
+    public function findByEmail($email, $fields=['*'])
     {
         $user = $this->db
                 ->select($fields)
@@ -50,7 +50,7 @@ class UserR implements \App\Contracts\RInterface
                 ->execute()
                 ->fetch($this->modelPath);
 
-        return (!empty($user) ? $user[0] : new UserModel());
+        return (!empty($user) ? $user[0] : NULL);
     }
 
     public function isUnique($field, $value): bool
@@ -62,10 +62,10 @@ class UserR implements \App\Contracts\RInterface
                 ->execute()
                 ->fetch($this->modelPath);
 
-        return (!empty($user) ? false : true);
+        return (!empty($user) ? FALSE : TRUE);
     }
 
-    public function getByPasswordResetHash(Token $token, string $resetToken, $attr=['*']): UserModel
+    public function getByPasswordResetHash(Token $token, string $resetToken, $attr=['*'])
     {
         $tokenHash = $token->generate($resetToken)->getHash();
 
@@ -76,6 +76,6 @@ class UserR implements \App\Contracts\RInterface
             ->execute()
             ->fetch($this->modelPath);
 
-        return (!empty($user) ? $user[0] : new UserModel());
+        return (!empty($user) ? $user[0] : NULL);
     }
 }

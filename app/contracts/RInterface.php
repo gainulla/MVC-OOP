@@ -4,7 +4,7 @@ namespace App\Contracts;
 
 interface RInterface
 {
-    public function fetch($fields=[]): array;
+    public function fetch($fields=[]); // mixed
 
-    public function find($id, $fields=[]): object;
+    public function find($id, $fields=[]); // mixed
 }
