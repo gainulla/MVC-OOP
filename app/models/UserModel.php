@@ -55,7 +55,7 @@ final class UserModel implements \App\Contracts\ModelInterface
         return $attributes;
     }
 
-    public static function formLabels(): array
+    public static function formFields(): array
     {
         return [
             'email'    => 'Эл. адрес',

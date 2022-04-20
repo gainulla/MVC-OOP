@@ -55,11 +55,11 @@ class Database
 
         if ($this->scenario == 'select') {
             $this->clearSql();
-            return $this; // Database
+            return $this;
 
         } elseif ($this->scenario == 'insert' || $this->scenario == 'update') {
             $this->clearSql();
-            return $this->stmt->rowCount(); // Number
+            return $this->stmt->rowCount();
         }
     }
 

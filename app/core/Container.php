@@ -37,9 +37,9 @@ class Container
         return new $repoPath($this->db);
     }
 
-    public function getForm(array $formLabels): Form
+    public function getForm(array $formFields): Form
     {
-        return new Form($formLabels);
+        return new Form($formFields);
     }
 
     public function getUrlManager(): UrlManager

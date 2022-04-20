@@ -8,9 +8,9 @@ class Form
 {
     private $data = [];
     private $errors = [];
-    private $formLabelsList = [];
+    private $formFieldsList = [];
 
-    public function __construct(array $formLabelsList=[])
+    public function __construct(array $formFieldsList=[])
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->data = $_POST;
@@ -19,7 +19,7 @@ class Form
             $this->data = $_GET;
         }
 
-        $this->formLabelsList = $formLabelsList;
+        $this->formFieldsList = $formFieldsList;
     }
 
     public function intoSession($sessionName, SessionManager $session)
@@ -64,8 +64,8 @@ class Form
     }
 
     public function getFieldLabel($inputName) {
-        return (isset($this->formLabelsList[$inputName])
-                ? $this->formLabelsList[$inputName]
+        return (isset($this->formFieldsList[$inputName])
+                ? $this->formFieldsList[$inputName]
                 : FALSE
         );
     }

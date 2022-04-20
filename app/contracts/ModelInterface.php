@@ -17,5 +17,5 @@ interface ModelInterface
     public function validationRules(): array;
 
     // define form labels
-    public static function formLabels(): array;
+    public static function formFields(): array;
 }

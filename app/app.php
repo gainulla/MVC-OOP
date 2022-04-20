@@ -28,19 +28,19 @@ switch ($route->handlerClass())
 	case 'AuthHandler':
 
 		if ($route->handlerMethod() == 'register') {
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		elseif ($route->handlerMethod() == 'login') {
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		elseif ($route->handlerMethod() == 'loginForm') {
 			$deps[] = $container->getRepositoryR(UserR::class);
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		elseif ($route->handlerMethod() == 'registerForm') {
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		break;
 
@@ -48,26 +48,26 @@ switch ($route->handlerClass())
 	case 'PasswordResetHandler':
 
 		if ($route->handlerMethod() == 'index') {
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		elseif ($route->handlerMethod() == 'emailForm') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 			$deps[] = $container->getMailer();
 		}
 		elseif ($route->handlerMethod() == 'reset') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		elseif ($route->handlerMethod() == 'resetForm') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
-			$deps[] = $container->getForm(UserModel::formLabels());
+			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		break;
 
