@@ -26,8 +26,6 @@ class UserR implements \App\Contracts\RInterface
                 ->execute()
                 ->fetch($this->modelPath);
 
-        $this->db->reset();
-
         return (!empty($users) ? $users : []);
     }
 
@@ -39,8 +37,6 @@ class UserR implements \App\Contracts\RInterface
                 ->where(['id' => $id])
                 ->execute()
                 ->fetch($this->modelPath);
-
-        $this->db->reset();
 
         return (!empty($user) ? $user[0] : new UserModel());
     }
@@ -54,8 +50,6 @@ class UserR implements \App\Contracts\RInterface
                 ->execute()
                 ->fetch($this->modelPath);
 
-        $this->db->reset();
-
         return (!empty($user) ? $user[0] : new UserModel());
     }
 
@@ -67,8 +61,6 @@ class UserR implements \App\Contracts\RInterface
                 ->where([$field => $value])
                 ->execute()
                 ->fetch($this->modelPath);
-
-        $this->db->reset();
 
         return (!empty($user) ? false : true);
     }
@@ -83,8 +75,6 @@ class UserR implements \App\Contracts\RInterface
             ->where(['passwordResetHash' => $tokenHash])
             ->execute()
             ->fetch($this->modelPath);
-
-        $this->db->reset();
 
         return (!empty($user) ? $user[0] : new UserModel());
     }

@@ -24,13 +24,11 @@ class UserCUD implements \App\Contracts\CUDInterface
 
         $this->db->set($user->attrAll());
 
-        if ($user->attr('id')) {
+        if ($user->attr('id') !== NULL) {
             $this->db->where(['id' => $user->attr('id')]);
         }
 
-        $affectedRows = $this->db->execute()->rowCount();
-
-        $this->db->reset();
+        $affectedRows = $this->db->execute();
 
         return $affectedRows > 0;
     }
@@ -52,10 +50,7 @@ class UserCUD implements \App\Contracts\CUDInterface
                 'passwordResetExpiresAt' => $expiryTime
             ])
             ->where(['id' => $user->attr('id')])
-            ->execute()
-            ->rowCount();
-
-        $this->db->reset();
+            ->execute();
 
         return ($affectedRows > 0) ? $token->getValue() : false;
     }
