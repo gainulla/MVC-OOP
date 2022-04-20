@@ -10,18 +10,11 @@ class Database
     private $stmt;
     private $sql = "";
     private $bindValues = [];
-    private $rowCount = 0;
+    private $scenario = "";
 
     public function __construct(Connection $conn)
     {
         $this->conn = $conn;
-    }
-
-    public function reset(): void
-    {
-        $this->sql = "";
-        $this->bindValues = [];
-        $this->rowCount = 0;
     }
 
     public function debug()
@@ -29,7 +22,7 @@ class Database
         echo pr([
             'sql'        => $this->sql,
             'bindValues' => $this->bindValues,
-            'rowCount'   => $this->rowCount
+            'rowCount'   => $this->stmt->rowCount
         ]);
 
         return $this;
@@ -39,7 +32,7 @@ class Database
     {
         $this->stmt->setFetchMode(\PDO::FETCH_CLASS, $model);
 
-        if ($this->rowCount > 0) {
+        if ($this->stmt->rowCount() > 0) {
             $result = $this->stmt->fetchAll();
         } else {
             $result = [];
@@ -48,7 +41,7 @@ class Database
         return $result;
     }
 
-    public function execute(): Database
+    public function execute()
     {
         $this->stmt = $this->conn->prepare($this->sql);
 
@@ -59,13 +52,21 @@ class Database
         }
 
         $this->stmt->execute();
-        $this->rowCount = $this->stmt->rowCount();
 
-        return $this;
+        if ($this->scenario == 'select') {
+            $this->clearSql();
+            return $this; // Database
+
+        } elseif ($this->scenario == 'insert' || $this->scenario == 'update') {
+            $this->clearSql();
+            return $this->stmt->rowCount(); // Number
+        }
     }
 
     public function select(array $fields): Database
     {
+        $this->scenario = 'select';
+
         $fields = implode(', ', $fields);
         $this->sql .= "SELECT {$fields}";
 
@@ -75,7 +76,6 @@ class Database
     public function from(string $tableName): Database
     {
         $this->sql .= " FROM {$tableName}";
-
         return $this;
     }
 
@@ -93,21 +93,20 @@ class Database
     public function orderBy(string $orderBy): Database
     {
         $this->sql .= " ORDER BY {$orderBy}";
-
         return $this;
     }
 
     public function insert($table)
     {
+        $this->scenario = 'insert';
         $this->sql = "INSERT INTO {$table}";
-
         return $this;
     }
 
     public function update($table)
     {
+        $this->scenario = 'update';
         $this->sql = "UPDATE {$table}";
-
         return $this;
     }
 
@@ -128,8 +127,9 @@ class Database
         return $this;
     }
 
-    public function rowCount()
+    private function clearSql(): void
     {
-        return $this->rowCount;
+        $this->sql = "";
+        $this->bindValues = [];
     }
 }
