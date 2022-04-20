@@ -85,8 +85,11 @@ $session = $container->getSessionManager();
 $auth = new Auth();
 
 if ($session->has('logged_in_user')) {
-	$user = $container->getRepositoryR(UserR::class)->find($session->get('logged_in_user'));
-	$auth->authenticate($user);
+	$auth->authenticate(
+		$container
+			->getRepositoryR(UserR::class)
+			->find($session->get('logged_in_user'))
+	);
 }
 
 $url = $container->getUrlManager();
