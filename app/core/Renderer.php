@@ -44,7 +44,7 @@ class Renderer
     {
         $data = array_merge($data, [
             'url'  => $this->url,
-            'user' => $this->user
+            'auth' => $this->auth
         ]);
 
         return $this->templateEngine->template($template, $data);
