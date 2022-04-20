@@ -19,11 +19,13 @@ class Database
 
     public function debug()
     {
-        echo pr([
+        $info = [
             'sql'        => $this->sql,
             'bindValues' => $this->bindValues,
             'rowCount'   => $this->stmt->rowCount
-        ]);
+        ];
+
+        echo '<pre>' . print_r($info, 1) . '</pre>';
 
         return $this;
     }
