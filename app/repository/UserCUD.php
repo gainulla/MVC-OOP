@@ -41,7 +41,7 @@ class UserCUD implements \App\Contracts\CUDInterface
     public function addPasswordResetHash(Token $token, $user)
     {
         $tokenHash = $token->generate()->getHash();
-        $expiryTime = date('Y-m-d H:i:s', time() + 60 * 60);
+        $expiryTime = date('Y-m-d H:i:s', time() + 60 * 10); // 10 minutes
 
         $affectedRows = $this->db
             ->update('users')
