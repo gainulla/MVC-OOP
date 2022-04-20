@@ -22,10 +22,6 @@ switch ($route->handlerClass())
 {
 	###############################################################
 	case 'HomeHandler':
-
-		if ($route->handlerMethod() == 'index') {
-			$deps = [];
-		}
 		break;
 
 	###############################################################
@@ -77,7 +73,7 @@ switch ($route->handlerClass())
 
 	################################################################
     default:
-            // do nothing
+			break;
 }
 
 $session = $container->getSessionManager();
