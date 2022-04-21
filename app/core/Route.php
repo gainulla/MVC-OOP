@@ -71,20 +71,13 @@ class Route
         );
     }
 
-    public function handler(): string
-    {
-        $arr = explode('\\', $this->currentHandler);
-        $class = array_pop($arr);
-        return "{$class}::{$this->currentMethod}";
-    }
-
-    public function handlerClass(): string
+    public function getHandler(): string
     {
         $arr = explode('\\', $this->currentHandler);
         return array_pop($arr);
     }
 
-    public function handlerMethod(): string
+    public function getAction(): string
     {
         return $this->currentMethod;
     }

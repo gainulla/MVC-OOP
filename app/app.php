@@ -18,7 +18,7 @@ $route = new Route();
 
 $deps = [];
 
-switch ($route->handlerClass())
+switch ($route->getHandler())
 {
 	###############################################################
 	case 'HomeHandler':
@@ -27,17 +27,17 @@ switch ($route->handlerClass())
 	###############################################################
 	case 'AuthHandler':
 
-		if ($route->handlerMethod() == 'register') {
+		if ($route->getAction() == 'register') {
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
-		elseif ($route->handlerMethod() == 'login') {
+		elseif ($route->getAction() == 'login') {
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
-		elseif ($route->handlerMethod() == 'loginForm') {
+		elseif ($route->getAction() == 'loginForm') {
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
-		elseif ($route->handlerMethod() == 'registerForm') {
+		elseif ($route->getAction() == 'registerForm') {
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
 			$deps[] = $container->getForm(UserModel::formFields());
@@ -47,23 +47,23 @@ switch ($route->handlerClass())
 	###############################################################
 	case 'PasswordResetHandler':
 
-		if ($route->handlerMethod() == 'index') {
+		if ($route->getAction() == 'index') {
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
-		elseif ($route->handlerMethod() == 'emailForm') {
+		elseif ($route->getAction() == 'emailForm') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
 			$deps[] = $container->getForm(UserModel::formFields());
 			$deps[] = $container->getMailer();
 		}
-		elseif ($route->handlerMethod() == 'reset') {
+		elseif ($route->getAction() == 'reset') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
-		elseif ($route->handlerMethod() == 'resetForm') {
+		elseif ($route->getAction() == 'resetForm') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
