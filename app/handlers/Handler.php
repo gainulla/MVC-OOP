@@ -35,8 +35,15 @@ class Handler
         header("Location: " . $this->url->for($urlPath));
     }
 
-    protected function getParam($index)
+    protected function params(string $key="")
     {
-        return (isset($this->params[$index]) ? $this->params[$index] : null);
+        if ($key != "") {
+            if (!isset($this->params[$key])) {
+                throw new \Exception("Parameter '$key' does not exists!");
+            }
+            return $this->params[$key];
+        }
+
+        return $this->params;
     }
 }
