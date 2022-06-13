@@ -2,8 +2,8 @@
 
 {% block content %}
 
-<div class="row">
-    <section class="main">
+<main class="row">
+    <div class="col--1of1">
 
         <form id="loginForm" action="{{ url.for('auth/login-form') }}" method="POST">
             <fieldset>
@@ -34,7 +34,7 @@
             </fieldset>
         </form>
 
-    </section>
-</div>
+    </div>
+</main>
 
 {% endblock %}

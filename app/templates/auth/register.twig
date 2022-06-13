@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<div class="row">
+<main class="row">
+    <div class="col--1of1">
 
-    <section class="main">
         <form id="registerForm" action="{{ url.for('auth/register-form') }}" method="POST">
             <fieldset>
                 <h2>Регистрация</h2>
@@ -35,8 +35,8 @@
                 </div>
             </fieldset>
         </form>
-    </section>
 
-</div>
+    </div>
+</main>
 
 {% endblock %}

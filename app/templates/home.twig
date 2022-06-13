@@ -2,26 +2,33 @@
 
 {% block content %}
 
-<div class="row">
-    <section class="yard">
-        {% if successMessage %}
-            <p class="success">{{ successMessage }}</p>
-        {% endif %}
-        {% if (auth.isLoggedIn()) %}
-            <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
-        {% endif %}
-    </section>
+<div class="wrap">
+    <div class="row">
+        <main class="col col--5of7 col--3of7--xl order-2--xl">
+            <div class="filler">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tincidunt ornare massa eget egestas purus viverra accumsan. Neque viverra justo nec ultrices dui sapien. Mi tempus imperdiet nulla malesuada pellentesque elit eget. Non enim praesent elementum facilisis leo vel. In metus vulputate eu scelerisque felis imperdiet proin. Nulla aliquet porttitor lacus luctus accumsan tortor. Posuere urna nec tincidunt praesent. Et ligula ullamcorper malesuada proin libero nunc. Lacus sed viverra tellus in. Sit amet tellus cras adipiscing enim eu turpis. Quam quisque id diam vel quam elementum pulvinar etiam non. Malesuada bibendum arcu vitae elementum curabitur vitae nunc. Et netus et malesuada fames ac turpis egestas integer eget. Eget egestas purus viverra accumsan in nisl. Et malesuada fames ac turpis egestas maecenas pharetra convallis posuere.
+            </div>
+        </main>
+        <aside class="col col--2of7 col--2of7--xl order-3--xl">
+            <div class="filler" style="height:calc(100% - 24px);">
+                <div>
+                    Aside wide
+                    {% if successMessage %}
+                        <p class="success">{{ successMessage }}</p>
+                    {% endif %}
+                    {% if (auth.isLoggedIn()) %}
+                        <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </aside>
 
-    <section class="main">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tincidunt ornare massa eget egestas purus viverra accumsan. Neque viverra justo nec ultrices dui sapien. Mi tempus imperdiet nulla malesuada pellentesque elit eget. Non enim praesent elementum facilisis leo vel. In metus vulputate eu scelerisque felis imperdiet proin. Nulla aliquet porttitor lacus luctus accumsan tortor. Posuere urna nec tincidunt praesent. Et ligula ullamcorper malesuada proin libero nunc. Lacus sed viverra tellus in. Sit amet tellus cras adipiscing enim eu turpis. Quam quisque id diam vel quam elementum pulvinar etiam non. Malesuada bibendum arcu vitae elementum curabitur vitae nunc. Et netus et malesuada fames ac turpis egestas integer eget. Eget egestas purus viverra accumsan in nisl. Et malesuada fames ac turpis egestas maecenas pharetra convallis posuere.
-        </p>
-    </section>
-
-    <aside class="sidebar">
-        Sidebar
-    </aside>
-
+        <aside class="col col--7of7 col--2of7--xl order-1--xl">
+            <div class="filler" style="height:calc(100% - 24px);">
+                <div>Sidebar</div>
+            </div>
+        </aside>
+    </div>
 </div>
 
 {% endblock %}
