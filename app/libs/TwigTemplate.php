@@ -18,7 +18,7 @@ class TwigTemplate implements \App\Contracts\TemplateInterface
 
     public function template(string $templateFile, array $data=[]): string
     {
-        $filename = "{$this->templateDirPath}/{$templateFile}.twig";
+        $filename = "{$this->templateDirPath}/{$templateFile}.html";
         if (!file_exists($filename)) {
             throw new \Exception("File '$filename' doesn't exist.");
         }
@@ -28,6 +28,6 @@ class TwigTemplate implements \App\Contracts\TemplateInterface
         $twig->addExtension(new DebugExtension());
         $twig->enableDebug();
 
-        return $twig->render("{$templateFile}.twig", $data);
+        return $twig->render("{$templateFile}.html", $data);
     }
 }
