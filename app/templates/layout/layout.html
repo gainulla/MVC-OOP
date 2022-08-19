@@ -4,51 +4,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@200;300;400;500;600;700;800&family=Nova+Flat&family=Lilita+One&display=swap" rel="stylesheet">
+
     <script src="https://kit.fontawesome.com/{{ key.fontawesome.embed_code }}.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url.for('main', 'css') }}">
-    <title>MVC OOP</title>
+    <title>Iusupov G</title>
 </head>
 <body>
 
-    <header class="wrapper px">
-        <div>
-            <img src="{{ url.for('dummy-logo', 'png') }}" alt="Logo" class="logo" />
+    <header class="wrapper w-100">
+        <div class="gallery">
+            <div class="gallery__item">
+                <div class="card">
+                    <img class="card__img" src="img/pic1.jpg" alt="">
+                    <div class="card__caption"></div>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <div class="card">
+                    <img class="card__img" src="img/pic2.jpg" alt="">
+                    <div class="card__caption"></div>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <div class="card">
+                    <img class="card__img" src="img/pic3.jpg" alt="">
+                    <div class="card__caption"></div>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <div class="card">
+                    <img class="card__img" src="img/pic4.jpg" alt="">
+                    <div class="card__caption"></div>
+                </div>
+            </div>
+            <div class="gallery__item">
+                <div class="card">
+                    <img class="card__img" src="img/pic5.jpg" alt="">
+                    <div class="card__caption"></div>
+                </div>
+            </div>
         </div>
-        <ul class="menu">
-            {% for item in menuReader.read(url, auth.isLoggedIn()) %}
-                <li>
-                    <a href="{{ item.url }}">{{ item.text }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+        <nav class="main-nav px">
+            <div class="logo">iu.g.</div>
+            <div class="search-box">
+                <input type="text" name="search" placeholder="Search..." />
+                <i class="icon icon--magnifiying"></i>
+            </div>
+        </nav>
     </header>
 
+    <!-- {% for item in menuReader.read(url, auth.isLoggedIn()) %}
+        <li>
+            <a href="{{ item.url }}">{{ item.text }}</a>
+        </li>
+    {% endfor %} -->
+
     <div class="page page--wrapper">
-        <main class="page__main px">
+        <main class="page__main w-100 px">
+            {% if successMessage %}
+                <p class="success">{{ successMessage }}</p>
+            {% endif %}
+            {% if (auth.isLoggedIn()) %}
+                <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
+            {% endif %}
+
             {% block content %}{% endblock %}
         </main>
-
-        <aside class="page__aside page__aside--left px">
-            <div>
-                <h3>Aside</h3>
-                {% if successMessage %}
-                    <p class="success">{{ successMessage }}</p>
-                {% endif %}
-                {% if (auth.isLoggedIn()) %}
-                    <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
-                {% endif %}
-            </div>
-        </aside>
-
-        <aside class="page__aside page__aside--right px">
-            <div>
-                <h3>Sidebar</h3>
-            </div>
-        </aside>
     </div>
 
-    <footer class="wrapper px">
-        <p>Copyright</p>
+    <footer class="wrapper w-100 px">
+        <p>&copy; IusupovG. - 2022. All rights reserved.</p>
     </footer>
 
     <script src="{{ url.for('main', 'js') }}"></script>
