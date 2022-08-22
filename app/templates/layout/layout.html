@@ -16,43 +16,14 @@
 <body>
 
     <header class="wrapper w-100">
-        <div class="gallery">
-            <div class="gallery__item">
-                <div class="card">
-                    <img class="card__img" src="img/pic1.jpg" alt="">
-                    <div class="card__caption"></div>
-                </div>
-            </div>
-            <div class="gallery__item">
-                <div class="card">
-                    <img class="card__img" src="img/pic2.jpg" alt="">
-                    <div class="card__caption"></div>
-                </div>
-            </div>
-            <div class="gallery__item">
-                <div class="card">
-                    <img class="card__img" src="img/pic3.jpg" alt="">
-                    <div class="card__caption"></div>
-                </div>
-            </div>
-            <div class="gallery__item">
-                <div class="card">
-                    <img class="card__img" src="img/pic4.jpg" alt="">
-                    <div class="card__caption"></div>
-                </div>
-            </div>
-            <div class="gallery__item">
-                <div class="card">
-                    <img class="card__img" src="img/pic5.jpg" alt="">
-                    <div class="card__caption"></div>
-                </div>
-            </div>
-        </div>
+
+        {% include 'partials/posts-gallery.html' %}
+
         <nav class="main-nav px">
             <div class="logo">iu.g.</div>
             <div class="search-box">
-                <input type="text" name="search" placeholder="Search..." />
-                <i class="icon icon--magnifiying"></i>
+                <input id="searchField" type="text" name="search" placeholder="Search..." />
+                <i id="magnifiying" class="icon icon--magnifiying"></i>
             </div>
         </nav>
     </header>
@@ -63,24 +34,52 @@
         </li>
     {% endfor %} -->
 
-    <div class="page page--wrapper">
-        <main class="page__main w-100 px">
-            {% if successMessage %}
-                <p class="success">{{ successMessage }}</p>
-            {% endif %}
-            {% if (auth.isLoggedIn()) %}
-                <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
-            {% endif %}
+    <main>
+        <div class="page">
+            <div class="page__main w-100 px">
+                {% if successMessage %}
+                    <p class="success">{{ successMessage }}</p>
+                {% endif %}
+                {% if (auth.isLoggedIn()) %}
+                    <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
+                {% endif %}
 
-            {% include 'subscribe.html' %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
 
-            {% block content %}{% endblock %}
-        </main>
-    </div>
+        <div class="wrapper bg-dark">
+            <div class="page px">
+                {% include 'partials/video-section.html' %}
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="page px">
+                {% include 'partials/subscribe.html' %}
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="page px mb">
+                {% include 'partials/contact-form.html' %}
+            </div>
+        </div>
+    </main>
 
     <footer class="wrapper w-100 px">
-        <p>&copy; IusupovG. - 2022. All rights reserved.</p>
+        <div class="footer row">
+            <div class="col d-none lg-d-block col-lg-4"></div>
+            <div class="col col-lg-4">
+                <div class="logo">IU.G.</div>
+            </div>
+            <div class="col col-lg-4">
+                <p class="copyright">Copyright &copy; 2022 iusupovg</p>
+            </div>
+        </div>
     </footer>
+
+    <div class="layer"></div>
 
     <script src="{{ url.for('main', 'js') }}"></script>
 </body>
