@@ -17,54 +17,37 @@
 
     <header class="wrapper w-100">
 
-        {% include 'partials/posts-gallery.html' %}
+        {% if handler == 'HomeHandler' %}
+            {% include 'partials/posts-gallery.html' %}
+        {% endif %}
 
         <nav class="main-nav px">
-            <div class="logo">iu.g.</div>
+            <div class="logo"><a href="{{ url.for("/") }}">iu.g.</a></div>
             <div class="search-box">
                 <input id="searchField" type="text" name="search" placeholder="Search..." />
                 <i id="magnifiying" class="icon icon--magnifiying"></i>
             </div>
+            {% if (auth.isLoggedIn()) %}
+                <p class="text-white px"><strong>{{ auth.user.attr('username') }}</strong></p>
+            {% endif %}
         </nav>
+
+        <!-- {% for item in menuReader.read(url, auth.isLoggedIn()) %}
+            <li>
+                <a href="{{ item.url }}">{{ item.text }}</a>
+            </li>
+        {% endfor %} -->
     </header>
 
-    <!-- {% for item in menuReader.read(url, auth.isLoggedIn()) %}
-        <li>
-            <a href="{{ item.url }}">{{ item.text }}</a>
-        </li>
-    {% endfor %} -->
-
     <main>
-        <div class="page">
-            <div class="page__main w-100 px">
-                {% if successMessage %}
-                    <p class="success">{{ successMessage }}</p>
-                {% endif %}
-                {% if (auth.isLoggedIn()) %}
-                    <p class="success">Hello, <strong>{{ auth.user.attr('username') }}</strong>!</p>
-                {% endif %}
-
-                {% block content %}{% endblock %}
+        {% if successMessage %}
+            <div class="alert alert--success">
+                {{ successMessage }}
+                <span class="alert__times closeTimes">&times;</span>
             </div>
-        </div>
+        {% endif %}
 
-        <div class="wrapper bg-dark">
-            <div class="page px">
-                {% include 'partials/video-section.html' %}
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div class="page px">
-                {% include 'partials/subscribe.html' %}
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div class="page px mb">
-                {% include 'partials/contact-form.html' %}
-            </div>
-        </div>
+        {% block content %}{% endblock %}
     </main>
 
     <footer class="wrapper w-100 px">
@@ -81,6 +64,15 @@
 
     <div class="layer"></div>
 
+    {% set obj = {
+            handler: handler,
+            action: action,
+        }
+    %}
+    <script>
+        var app = '{{ obj | json_encode | raw }}';
+    </script>
     <script src="{{ url.for('main', 'js') }}"></script>
+
 </body>
 </html>

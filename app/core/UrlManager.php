@@ -29,23 +29,25 @@ class UrlManager
         $this->allowImgExt = $allowImgExt;
     }
 
-    public function for(string $target, string $fileExt="")
+    public function for(string $name, string $fileExt="")
     {
         if (in_array($fileExt, $this->allowImgExt)) {
             $dir = 'img';
         } else {
+            // e.g. example.js directory is js
             $dir = $fileExt;
         }
 
         switch ($dir) {
             case 'img':
-                return $this->imgDirUri . $target. ".$fileExt";
+                return $this->imgDirUri . $name. ".$fileExt";
             case 'css':
-                return $this->cssDirUri . $target . ".$dir";
+                return $this->cssDirUri . $name . ".$fileExt";
             case 'js':
-                return $this->jsDirUri . $target . ".$dir";
+                return $this->jsDirUri . $name . ".$fileExt";
+            // controller/action
             default:
-                return BASE_URL . ltrim($target, '/');
+                return BASE_URL . ltrim($name, '/');
         }
     }
 }

@@ -11,6 +11,7 @@ use App\Core\UrlManager;
 use App\Core\SessionManager;
 use App\Core\Token;
 use App\Core\Auth;
+use App\Core\Captcha;
 use App\Libs\TwigTemplate;
 use App\Libs\SymfonyMailer;
 use App\Contracts\RInterface;
@@ -50,14 +51,16 @@ class Container
         );
     }
 
-    public function getRenderer(Auth $auth, UrlManager $url): Renderer
+    public function getRenderer(Auth $auth, UrlManager $url, $handler, $action): Renderer
     {
         return new Renderer(
             new TwigTemplate($this->config['template_path']),
             new MenuReader(),
             $url,
             $auth,
-            $this->config['key']
+            $this->config['key'],
+            $handler,
+            $action
         );
     }
 
@@ -74,5 +77,10 @@ class Container
     public function getMailer(): SymfonyMailer
     {
         return new SymfonyMailer($this->config['smtp'], $this->config['admin_email']);
+    }
+
+    public function getCaptcha(): Captcha
+    {
+        return new Captcha($this->config['captcha_path']);
     }
 }

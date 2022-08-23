@@ -29,15 +29,16 @@ return [
     ],
 
     'assets_uri'     => [
-        'css_dir_uri'    => BASE_URL . 'css/',
-        'img_dir_uri'    => BASE_URL . 'img/',
-        'js_dir_uri'     => BASE_URL . 'js/',
+        'css_dir_uri'       => BASE_URL . 'css/',
+        'img_dir_uri'       => BASE_URL . 'img/',
+        'js_dir_uri'        => BASE_URL . 'js/',
     ],
 
     'allow_img_ext'  => ['jpg', 'jpeg', 'png'],
 
     'app_root'       => realpath(__DIR__),
     'template_path'  => realpath(__DIR__ . '/templates'),
+    'captcha_path'   => realpath(__DIR__ . '/../www/captcha'),
 
     'key'            => [
         // your fontawesome embed code

@@ -60,6 +60,6 @@ class AuthHandler extends Handler
     public function logout()
     {
         $this->session->clear();
-        $this->redirect('home/index');
+        $this->redirect('/');
     }
 }

@@ -2,16 +2,12 @@
 
 {% block content %}
 
-<section class="main">
-    <div class="centered-msg-box">
-
-        <h1>Восстановление доступа</h1>
-        <p>
-            Ссылка на сброс пароля устарела. <br />
-            Пожалуйста кликнете <a href="{{ url.for('password-reset') }}">сюда</a>, чтобы создать новую.
-        </p>
-
-    </div>
-</section>
+<div class="d-flex flex-xy-center">
+    <h1>Восстановление доступа</h1>
+    <p>
+        Ссылка на сброс пароля устарела. <br />
+        Пожалуйста кликнете <a href="{{ url.for('password-reset') }}">сюда</a>, чтобы создать новую.
+    </p>
+</div>
 
 {% endblock %}

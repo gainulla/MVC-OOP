@@ -47,30 +47,32 @@ switch ($route->getHandler())
 	###############################################################
 	case 'PasswordResetHandler':
 
-		if ($route->getAction() == 'index') {
+		if ($route->getAction() === 'index') {
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
-		elseif ($route->getAction() == 'emailForm') {
+		elseif ($route->getAction() === 'emailForm') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
 			$deps[] = $container->getForm(UserModel::formFields());
 			$deps[] = $container->getMailer();
 		}
-		elseif ($route->getAction() == 'reset') {
+		elseif ($route->getAction() === 'reset') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
-		elseif ($route->getAction() == 'resetForm') {
+		elseif ($route->getAction() === 'resetForm') {
 			$deps[] = $container->getToken();
 			$deps[] = $container->getRepositoryR(UserR::class);
 			$deps[] = $container->getRepositoryCUD(UserCUD::class);
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		break;
-
+	case 'CaptchaHandler':
+		$deps[] = $container->getCaptcha();
+		break;
 	################################################################
     default:
 			break;
@@ -89,6 +91,18 @@ if ($session->has('logged_in_user')) {
 }
 
 $url = $container->getUrlManager();
-$renderer = $container->getRenderer($auth, $url);
 
-$route->execute($renderer, $session, $auth, $url, $deps);
+$renderer = $container->getRenderer(
+	$auth,
+	$url,
+	$route->getHandler(),
+	$route->getAction(),
+);
+
+$route->execute(
+	$renderer,
+	$session,
+	$auth,
+	$url,
+	$deps
+);

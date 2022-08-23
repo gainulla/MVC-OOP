@@ -11,7 +11,11 @@
                 <input type="text" name="name" placeholder="Имя" value="" />
                 <input type="text" name="email" placeholder="Email" value="" />
                 <textarea name="" id="" cols="30" rows="10" placeholder="Ваше сообщение"></textarea>
-                <button class="btn btn--primary">Отправить</button>
+                <div class="captcha">
+                    <img src="{{ url.for('captcha/create') }}" />
+                    <input type="text" name="captcha" placeholder="Код">
+                    <button class="btn btn--primary">Отправить</button>
+                </div>
             </form>
         </div>
     </div>

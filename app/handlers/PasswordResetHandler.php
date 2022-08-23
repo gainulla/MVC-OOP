@@ -67,7 +67,7 @@ class PasswordResetHandler extends Handler
     )
     {
         $form->fromSession('reset_form', $this->session);
-        $resetToken = $this->getParam(0);
+        $resetToken = $this->params(0);
 
         if ($resetToken) {
             $user = $userR->getByPasswordResetHash($token, $resetToken, [

@@ -2,22 +2,16 @@
 
 {% block content %}
 
-<section class="main">
+<form id="emailForm" action="{{ url.for('password-reset/email-form') }}" method="POST" class="form">
+    <fieldset>
+        <h2 class="form__title">Восстановление доступа</h2>
 
-    <form id="emailForm" action="{{ url.for('password-reset/email-form') }}" method="POST">
-        <fieldset>
-            <h2>Восстановление доступа</h2>
+        <div class="field">
+            <input id="email" type="email" name="email" value="" placeholder="{{ form.getFieldLabel('email') }}" />
+        </div>
 
-            <div>
-                <input id="email" type="email" name="email" value="" placeholder="{{ form.getFieldLabel('email') }}" />
-            </div>
-
-            <div>
-                <button type="submit">Отправить</button>
-            </div>
-        </fieldset>
-    </form>
-
-</section>
+        <button class="form__btn btn btn--primary" type="submit">Отправить</button>
+    </fieldset>
+</form>
 
 {% endblock %}

@@ -13,28 +13,36 @@ class Renderer
     private $url;
     private $auth;
     private $key;
+    private $handler;
+    private $action;
 
     public function __construct(
         TwigTemplate $templateEngine,
         MenuReader $menuReader,
         UrlManager $url,
         Auth $auth,
-        array $key
+        array $key,
+        $handler,
+        $action
     ) {
         $this->templateEngine = $templateEngine;
         $this->menuReader = $menuReader;
         $this->url = $url;
         $this->auth = $auth;
         $this->key = $key;
+        $this->handler = $handler;
+        $this->action = $action;
     }
 
     public function render(string $template, array $data=[]): void
     {
         $data = array_merge($data, [
-            'menuReader' => $this->menuReader,
-            'url'  => $this->url,
-            'key'  => $this->key,
-            'auth' => $this->auth
+            'menuReader'    => $this->menuReader,
+            'url'           => $this->url,
+            'key'           => $this->key,
+            'auth'          => $this->auth,
+            'handler'       => $this->handler,
+            'action'        => $this->action
         ]);
 
         echo $this->templateEngine->template($template, $data);

@@ -2,16 +2,14 @@
 
 {% block content %}
 
-<section class="main">
-    <div class="centered-msg-box">
+<div class="d-flex flex-d-column flex-xy-center">
 
-        <h1>Пароль обновлён!</h1>
-        <p>
-            Нажмите на <a href="{{ url.for('auth/login') }}">войти</a>,
-            чтобы перейти на страницу авторизации.
-        </p>
+    <h1>Пароль обновлён!</h1>
+    <p>
+        Нажмите на <a href="{{ url.for('auth/login') }}">войти</a>,
+        чтобы перейти на страницу авторизации.
+    </p>
 
-    </div>
-</section>
+</div>
 
 {% endblock %}
