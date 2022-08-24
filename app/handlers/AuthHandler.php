@@ -28,7 +28,7 @@ class AuthHandler extends Handler
             $this->renderer->render('auth/login', ['errors' => $errors]);
         } else {
             $this->session->set('logged_in_user', $user->attr('id'));
-            $this->redirect('home/index');
+            $this->redirect('/');
         }
     }
 
@@ -49,7 +49,7 @@ class AuthHandler extends Handler
             $user = new UserModel($form->inputAll());
             $userCUD->save($user);
             $this->session->set('success', 'Регистрация прошла успешно!');
-            $this->redirect('home/index');
+            $this->redirect('/');
 
         } else {
             $form->intoSession('register_form', $this->session);
