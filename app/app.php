@@ -6,8 +6,11 @@ use App\Core\Database;
 use App\Core\Connection;
 use App\Core\Auth;
 use App\Models\UserModel;
+use App\Models\PostModel;
 use App\Repository\UserR;
 use App\Repository\UserCUD;
+use App\Repository\PostR;
+use App\Repository\PostCUD;
 
 $config = require(realpath(__DIR__ . '/config.php'));
 
@@ -70,9 +73,21 @@ switch ($route->getHandler())
 			$deps[] = $container->getForm(UserModel::formFields());
 		}
 		break;
+
 	case 'CaptchaHandler':
 		$deps[] = $container->getCaptcha();
 		break;
+
+	case 'AdminHandler':
+		if ($route->getAction() === 'edit') {
+			$deps[] = $container->getForm(PostModel::formFields());
+		}
+		elseif ($route->getAction() === 'editForm') {
+			$deps[] = $container->getRepositoryR(PostR::class);
+			$deps[] = $container->getRepositoryCUD(PostCUD::class);
+			$deps[] = $container->getForm(PostModel::formFields());
+			$deps[] = $config;
+		}
 	################################################################
     default:
 			break;

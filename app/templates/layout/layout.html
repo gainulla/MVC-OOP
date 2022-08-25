@@ -28,7 +28,10 @@
                 <i id="magnifiying" class="icon icon--magnifiying"></i>
             </div>
             {% if (auth.isLoggedIn()) %}
-                <p class="text-white px"><strong>{{ auth.user.attr('username') }}</strong></p>
+                <p class="text-white px">
+                    <strong>{{ auth.user.attr('username') }}</strong> |
+                    <a href="{{ url.for('admin/edit') }}" class="simple-link text-white">dashboard</a>
+                </p>
             {% endif %}
         </nav>
 
@@ -73,6 +76,10 @@
         var app = '{{ obj | json_encode | raw }}';
     </script>
     <script src="{{ url.for('main', 'js') }}"></script>
+
+    {% if handler == 'AdminHandler' %}
+        <script src="{{ url.for('admin', 'js') }}"></script>
+    {% endif %}
 
 </body>
 </html>

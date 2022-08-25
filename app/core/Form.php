@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Core\SessionManager;
+use App\Lib\UploadException;
 
 class Form
 {
@@ -115,5 +116,40 @@ class Form
         }
 
         return (count($this->errors) == 0);
+    }
+
+    public function uploadFile($uploadsPath='', array $extensions=[], string $name='userfile')
+    {
+        pr($_FILES);
+
+        if (isset($_FILES[$name])) {
+
+            $ext_error = false;
+            $file_ext = explode('.', $_FILES[$name]['name']);
+            $file_ext = end($file_ext);
+
+            if (!in_array($file_ext, $extensions)) {
+                $ext_error = true;
+            }
+
+            try {
+                if ($_FILES[$name]['error']) {
+                    throw new UploadException($_FILES[$name]['error']);
+                } else if ($ext_error) {
+                    throw new Exception('Invalid file extension!');
+                } else {
+                    if (!move_uploaded_file(
+                        $_FILES[$name]['tmp_name'],
+                        rtrim($uploadsPath, '/') . '/' . $_FILES[$name]['name']
+                    )) {
+                        throw new Exception('Fail to move uploaded file!');
+                    }
+                }
+            } catch (Exception $e) {
+                $this->errors[$name] = $e->getMessage();
+            }
+        } else {
+            echo 'File name not isset!';
+        }
     }
 }

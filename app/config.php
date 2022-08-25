@@ -39,6 +39,7 @@ return [
     'app_root'       => realpath(__DIR__),
     'template_path'  => realpath(__DIR__ . '/templates'),
     'captcha_path'   => realpath(__DIR__ . '/../www/captcha'),
+    'uploads_path'   => secrets('uploads_path'),
 
     'key'            => [
         // your fontawesome embed code

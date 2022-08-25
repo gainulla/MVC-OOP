@@ -1,0 +1,77 @@
+
+{% extends 'layout/layout.html' %}
+
+{% block content %}
+
+    <div class="wrapper">
+        <div class="page px mt mb">
+            <form action="{{ url.for('admin/editForm') }}" method="post" enctype="multipart/form-data" class="form">
+                <fieldset class="w-100">
+                    <h2>Создать пост</h2>
+                    <div class="field">
+                        <label for="title">{{ form.getFieldLabel('title') }}</label>
+                        <input id="title" type="text" name="title" />
+                    </div>
+                    <div class="field">
+                        <label for="metaDesc">{{ form.getFieldLabel('meta_desc') }}</label>
+                        <input id="metaDesc" type="text" name="meta_desc" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col col-lg-4">
+                            <div class="field">
+                                <label for="postFormat">{{ form.getFieldLabel('format') }}</label>
+                                <select id="format" name="format" id="postFormat">
+                                    <option value="image">Изображение</option>
+                                    <option value="video">Видео</option>
+                                </select>
+                            </div>
+                            <div class="field field--file">
+                                <input id="userFile" type="file" name="userfile" />
+                            </div>
+                            <div class="field">
+                                <input id="videoUrl" type="text" name="videourl" />
+                            </div>
+                        </div>
+                        <div class="col col-lg-8">
+                            <div class="preview" id="Preview">
+                                <img class="preview__image" src="" alt="Image Preview">
+                                <div class="preview__video youtube-embed">
+                                    <iframe
+                                        width="853"
+                                        height="480"
+                                        src=""
+                                        title=""
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <span class="preview__default-text previewDefTxt">Preview</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="content">{{ form.getFieldLabel('content') }}</label>
+                        <textarea id="content" type="text" name="content"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="postStatus">{{ form.getFieldLabel('status') }}</label>
+                        <select id="status" name="status" id="postStatus">
+                            <option value="pending">на модерации</option>
+                            <option value="published">опубликовано</option>
+                            <option value="removed">удалено</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="published_at">{{ form.getFieldLabel('published_at') }}</label>
+                        <input type="text" name="published_at" />
+                    </div>
+                    <button type="submit" class="form__btn btn btn--primary">Сохранить</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
