@@ -21,9 +21,9 @@
                         <div class="col col-lg-4">
                             <div class="field">
                                 <label for="postFormat">{{ form.getFieldLabel('format') }}</label>
-                                <select id="format" name="format" id="postFormat">
-                                    <option value="image">Изображение</option>
-                                    <option value="video">Видео</option>
+                                <select name="format" id="postFormat">
+                                    <option value="image" value="image">Изображение</option>
+                                    <option value="video" value="video">Видео</option>
                                 </select>
                             </div>
                             <div class="field field--file">
@@ -35,7 +35,9 @@
                         </div>
                         <div class="col col-lg-8">
                             <div class="preview" id="Preview">
-                                <img class="preview__image" src="" alt="Image Preview">
+                                <div class="preview__image">
+                                    <img src="" alt="Image Preview" />
+                                </div>
                                 <div class="preview__video youtube-embed">
                                     <iframe
                                         width="853"
@@ -47,7 +49,7 @@
                                         allowfullscreen>
                                     </iframe>
                                 </div>
-                                <span class="preview__default-text previewDefTxt">Preview</span>
+                                <span class="preview__default-text previewDefault">Preview</span>
                             </div>
                         </div>
                     </div>
