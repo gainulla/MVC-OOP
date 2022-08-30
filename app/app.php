@@ -89,6 +89,9 @@ switch ($route->getHandler())
 			$deps[] = $config;
 		}
 	################################################################
+	case 'ImageHandler':
+		$deps[] = $config['uploads_path'];
+
     default:
 			break;
 }

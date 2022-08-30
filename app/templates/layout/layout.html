@@ -11,6 +11,9 @@
 
     <script src="https://kit.fontawesome.com/{{ key.fontawesome.embed_code }}.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url.for('main', 'css') }}">
+    {% if handler == 'AdminHandler' %}
+        <link rel="stylesheet" href="{{ url.for('admin', 'css') }}">
+    {% endif %}
     <title>Iusupov G</title>
 </head>
 <body>
@@ -67,16 +70,18 @@
 
     <div class="layer"></div>
 
-    {% set obj = {
+    {%
+        set data = {
             handler: handler,
             action: action,
+            imageHandlerResize: url.for('image/resize')
         }
     %}
-    <script>
-        var app = '{{ obj | json_encode | raw }}';
-    </script>
+
+    <script>var app = '{{ data | json_encode | raw }}';</script>
     <script src="{{ url.for('main', 'js') }}"></script>
 
+    <!-- Include script for Admin -->
     {% if handler == 'AdminHandler' %}
         <script src="{{ url.for('admin', 'js') }}"></script>
     {% endif %}

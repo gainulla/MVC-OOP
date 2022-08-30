@@ -3,7 +3,7 @@
 namespace App\Core;
 
 use App\Core\SessionManager;
-use App\Lib\UploadException;
+use App\Libs\UploadException;
 
 class Form
 {

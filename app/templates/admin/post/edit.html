@@ -5,6 +5,12 @@
 
     <div class="wrapper">
         <div class="page px mt mb">
+
+            <!-- <div class="preview__image" style="width:100%">
+                <img id="image" src="{{ url.for('sport', 'jpg') }}" alt="Image Preview" style="display:block;max-width:100%;" />
+            </div>
+            <br /> -->
+
             <form action="{{ url.for('admin/editForm') }}" method="post" enctype="multipart/form-data" class="form">
                 <fieldset class="w-100">
                     <h2>Создать пост</h2>
@@ -32,11 +38,16 @@
                             <div class="field">
                                 <input id="videoUrl" type="text" name="videourl" />
                             </div>
+                            <div>
+                                <div>Width: <span id="imageWidth"></span></div>
+                                <div>Height: <span id="imageHeight"></span></div>
+                                <p><a id="imgCropBtn" class="btn btn--secondary">Crop</button></a>
+                            </div>
                         </div>
                         <div class="col col-lg-8">
                             <div class="preview" id="Preview">
-                                <div class="preview__image">
-                                    <img src="" alt="Image Preview" />
+                                <div class="preview__image" style="display:block;">
+                                    <img src="{{ url.for('image/src/bicycle-sport-trek.jpg') }}" alt="Image Preview" />
                                 </div>
                                 <div class="preview__video youtube-embed">
                                     <iframe
@@ -49,7 +60,7 @@
                                         allowfullscreen>
                                     </iframe>
                                 </div>
-                                <span class="preview__default-text previewDefault">Preview</span>
+                                <!-- <span class="preview__default-text previewDefault">Preview</span> -->
                             </div>
                         </div>
                     </div>
