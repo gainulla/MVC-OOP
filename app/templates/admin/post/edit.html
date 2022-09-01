@@ -38,16 +38,11 @@
                             <div class="field">
                                 <input id="videoUrl" type="text" name="videourl" />
                             </div>
-                            <div>
-                                <div>Width: <span id="imageWidth"></span></div>
-                                <div>Height: <span id="imageHeight"></span></div>
-                                <p><a id="imgCropBtn" class="btn btn--secondary">Crop</button></a>
-                            </div>
                         </div>
                         <div class="col col-lg-8">
                             <div class="preview" id="Preview">
-                                <div class="preview__image" style="display:block;">
-                                    <img src="{{ url.for('image/src/bicycle-sport-trek.jpg') }}" alt="Image Preview" />
+                                <div class="preview__image">
+                                    <img src="" alt="Image Preview" />
                                 </div>
                                 <div class="preview__video youtube-embed">
                                     <iframe
@@ -60,7 +55,7 @@
                                         allowfullscreen>
                                     </iframe>
                                 </div>
-                                <!-- <span class="preview__default-text previewDefault">Preview</span> -->
+                                <span class="preview__default-text previewDefault">Preview</span>
                             </div>
                         </div>
                     </div>
@@ -84,6 +79,29 @@
                     <button type="submit" class="form__btn btn btn--primary">Сохранить</button>
                 </fieldset>
             </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal__backdrop"></div>
+        <div class="modal__body">
+            <div class="cropper">
+                <div class="cropper__main">
+                    <img id="userImage" class="cropper__image" src="">
+                    <span class="cropper__text">Вы можете обрезать изображение перед загрузкой</span>
+                </div>
+                <div class="cropper__aside">
+                    <div class="cropper__preview cropperPreview"></div>
+                    <div class="cropper__info">
+                        <div>Width: <span id="croppedImgWidth"></span></div>
+                        <div>Height: <span id="croppedImgHeight"></span></div>
+                    </div>
+                    <div class="cropper__buttons">
+                        <button class="btn btn--secondary" id="cropperCropBtn">Crop</button>
+                        <button class="btn btn--thirtary" id="cropperCancelBtn">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

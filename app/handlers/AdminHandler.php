@@ -13,9 +13,7 @@ class AdminHandler extends Handler
         $params = $this->params();
 
         if ($form->validate($postR, PostModel::validationRules())) {
-            echo 'Path: ' . $config['uploads_path'] . '<br>';
-            pr($config['allow_img_ext']);
-            $form->uploadFile($config['uploads_path'], $config['allow_img_ext'], 'userfile');
+            
         }
 
         if ($form->validationPassed()) {
