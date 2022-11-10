@@ -64,7 +64,7 @@ class PostModel implements \App\Contracts\ModelInterface
         ];
     }
 
-    public function validationRules(): array
+    public static function validationRules(): array
     {
         return [
             'title'         => [],

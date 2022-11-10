@@ -14,7 +14,7 @@ interface ModelInterface
     public function attrAll(): array;
 
     // define validation rules
-    public function validationRules(): array;
+    public static function validationRules(): array;
 
     // define form labels
     public static function formFields(): array;
